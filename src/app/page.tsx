@@ -1,7 +1,9 @@
+import Header from "@/components/header";
+
 export default function Home() {
-  const home = "";
-
-  console.log(home);
-
-  return <div className="text-red-500">hello tailwind</div>;
+  return (
+    <div className=" antialiased">
+      <Header />
+    </div>
+  );
 }
