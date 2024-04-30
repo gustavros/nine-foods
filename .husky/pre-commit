@@ -1,1 +1,1 @@
-npx list-staged
+npx lint-staged
