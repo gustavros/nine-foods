@@ -6,11 +6,7 @@ import { Prisma } from "@prisma/client";
 interface ProductListProps {
   products: Prisma.ProductGetPayload<{
     include: {
-      restaurant: {
-        select: {
-          name: true;
-        };
-      };
+      restaurant: true;
     };
   }>[];
 }

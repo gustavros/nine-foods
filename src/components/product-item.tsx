@@ -9,11 +9,7 @@ import DiscountBadge from "./discount-badge";
 interface ProductItemProps {
   product: Prisma.ProductGetPayload<{
     include: {
-      restaurant: {
-        select: {
-          name: true;
-        };
-      };
+      restaurant: true;
     };
   }>;
 }

@@ -4,16 +4,11 @@ import { formatCurrency, calculateProductTotalPrice } from "@/helpers/price";
 import { Prisma } from "@prisma/client";
 import Image from "next/image";
 import DiscountBadge from "./discount-badge";
-import {
-  BikeIcon,
-  ChevronLeftIcon,
-  ChevronRightIcon,
-  TimerIcon,
-} from "lucide-react";
+import { ChevronLeftIcon, ChevronRightIcon } from "lucide-react";
 import { Button } from "./ui/button";
 import { useState } from "react";
-import { Card } from "./ui/card";
 import ProductList from "./product-list";
+import DeliveryInfo from "./delivery-info";
 
 interface ProductDetailsProps {
   product: Prisma.ProductGetPayload<{
@@ -47,7 +42,7 @@ export default function ProductDetails({
   }
 
   return (
-    <div className="relative z-50 -mt-5 rounded-t-lg bg-white p-5">
+    <div className="relative z-50 -mt-5 rounded-t-lg bg-background p-5">
       {/* NOME DO RESTAURANTE */}
       <div className="flex items-center gap-1.5">
         <div className="relative h-6 w-6">
@@ -110,39 +105,7 @@ export default function ProductDetails({
       </div>
 
       {/* DESCRICAO DO PRODUTO */}
-
-      <Card className="my-6 flex justify-around py-2.5">
-        {/* CUSTO */}
-        <div className="text-center">
-          <div className="flex items-center gap-1 text-muted-foreground">
-            <span className="text-sm">Taxa de entrega</span>
-
-            <BikeIcon size={16} />
-          </div>
-
-          {Number(product.restaurant.deliveryFee) > 0 ? (
-            <p className="text-sm">
-              {formatCurrency(Number(product.restaurant.deliveryFee))}
-            </p>
-          ) : (
-            <p className="text-sm">Grátis</p>
-          )}
-        </div>
-
-        {/* TEMPO */}
-
-        <div className="text-center">
-          <div className="flex items-center gap-1 text-muted-foreground">
-            <span className="text-sm">Entrega</span>
-
-            <TimerIcon size={16} />
-          </div>
-
-          <p className="text-sm">
-            {product.restaurant.deliveryTimeMinutes} min
-          </p>
-        </div>
-      </Card>
+      <DeliveryInfo restaurant={product.restaurant} />
 
       <div className="mb-6 space-y-3">
         <h3 className="">Sobre</h3>
@@ -155,7 +118,7 @@ export default function ProductDetails({
         <ProductList products={similarProducts} />
       </div>
 
-      <div className="sticky bottom-0 bg-white py-2">
+      <div className="sticky bottom-0 w-full bg-background py-2">
         <Button className="w-full font-semibold">Adicionar á sacola</Button>
       </div>
     </div>
