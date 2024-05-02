@@ -1,6 +1,5 @@
 import ProductDetails from "@/components/product-details";
 import ProductImage from "@/components/product-image";
-import ProductList from "@/components/product-list";
 import { db } from "@/lib/prisma";
 import { notFound } from "next/navigation";
 
@@ -44,15 +43,7 @@ export default async function ProductPage({ params }: ProductPageProps) {
       <ProductImage product={product} />
 
       {/* TITULO E PREÇO */}
-      <ProductDetails product={product} />
-
-      {/* PRODUTOS SIMILARES */}
-
-      <div className="mb-6 space-y-3 px-5">
-        <h3 className="">Produtos similares</h3>
-
-        <ProductList products={similarProducts} />
-      </div>
+      <ProductDetails product={product} similarProducts={similarProducts} />
     </div>
   );
 }

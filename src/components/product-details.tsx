@@ -13,6 +13,7 @@ import {
 import { Button } from "./ui/button";
 import { useState } from "react";
 import { Card } from "./ui/card";
+import ProductList from "./product-list";
 
 interface ProductDetailsProps {
   product: Prisma.ProductGetPayload<{
@@ -20,9 +21,17 @@ interface ProductDetailsProps {
       restaurant: true;
     };
   }>;
+  similarProducts: Prisma.ProductGetPayload<{
+    include: {
+      restaurant: true;
+    };
+  }>[];
 }
 
-export default function ProductDetails({ product }: ProductDetailsProps) {
+export default function ProductDetails({
+  product,
+  similarProducts,
+}: ProductDetailsProps) {
   const [quantity, setQuantity] = useState(1);
 
   function handleIncreaseQuantity() {
@@ -138,6 +147,16 @@ export default function ProductDetails({ product }: ProductDetailsProps) {
       <div className="mb-6 space-y-3">
         <h3 className="">Sobre</h3>
         <p className="text-sm text-muted-foreground">{product.description}</p>
+      </div>
+
+      <div className="mb-6 space-y-3">
+        <h3 className="">Produtos similares</h3>
+
+        <ProductList products={similarProducts} />
+      </div>
+
+      <div className="sticky bottom-0 bg-white py-2">
+        <Button className="w-full font-semibold">Adicionar á sacola</Button>
       </div>
     </div>
   );
