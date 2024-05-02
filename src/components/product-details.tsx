@@ -130,7 +130,7 @@ export default function ProductDetails({ product }: ProductDetailsProps) {
           </div>
 
           <p className="text-sm">
-            {formatCurrency(Number(product.restaurant.deliveryTimeMinutes))}
+            {product.restaurant.deliveryTimeMinutes} min
           </p>
         </div>
       </Card>
