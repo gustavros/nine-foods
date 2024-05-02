@@ -7,6 +7,7 @@ import Search from "@/components/search";
 import { Button } from "@/components/ui/button";
 import { db } from "@/lib/prisma";
 import { ChevronRight } from "lucide-react";
+import Link from "next/link";
 
 export default async function Home() {
   const products = await db.product.findMany({
@@ -17,11 +18,7 @@ export default async function Home() {
     },
     take: 10,
     include: {
-      restaurant: {
-        select: {
-          name: true,
-        },
-      },
+      restaurant: true,
     },
   });
 
@@ -74,9 +71,12 @@ export default async function Home() {
           <Button
             variant={"link"}
             className="flex items-center px-0 text-primary"
+            asChild
           >
-            Ver todos
-            <ChevronRight size={16} />
+            <Link href={"/recommended"}>
+              Ver todos
+              <ChevronRight size={16} />
+            </Link>
           </Button>
         </div>
 

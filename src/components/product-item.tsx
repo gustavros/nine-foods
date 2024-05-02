@@ -42,9 +42,11 @@ export default function ProductItem({ product }: ProductItemProps) {
               {formatCurrency(calculateProductTotalPrice(product))}
             </span>
 
-            <span className="text-sm text-muted-foreground line-through">
-              {formatCurrency(Number(product.price))}
-            </span>
+            {product.discountPercentage > 0 && (
+              <span className="text-sm text-muted-foreground line-through">
+                {formatCurrency(Number(product.price))}
+              </span>
+            )}
           </div>
 
           <span className="block text-sm text-muted-foreground">

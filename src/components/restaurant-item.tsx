@@ -1,19 +1,25 @@
 import { formatCurrency } from "@/helpers/price";
 import { Restaurant } from "@prisma/client";
-import { BikeIcon, HeartIcon, StarIcon, TimerIcon } from "lucide-react";
+import { BikeIcon, TimerIcon } from "lucide-react";
 import Image from "next/image";
-import { Button } from "./ui/button";
 import Link from "next/link";
+import { cn } from "@/lib/utils";
+import StarBadge from "./star-badge";
+import HeartButton from "./heart-button";
 
 interface RestaurantItemProps {
   restaurant: Restaurant;
+  className?: string;
 }
 
-export default function RestaurantItem({ restaurant }: RestaurantItemProps) {
+export default function RestaurantItem({
+  restaurant,
+  className,
+}: RestaurantItemProps) {
   return (
     <Link href={`/restaurants/${restaurant.id}`}>
-      <div className="min-w-64 max-w-64 space-y-3">
-        <div className="relative h-36 w-full ">
+      <div className={cn("min-w-64 max-w-64 space-y-3", className)}>
+        <div className="relative h-36 w-full">
           <Image
             src={restaurant.imageUrl}
             alt={restaurant.name}
@@ -21,23 +27,12 @@ export default function RestaurantItem({ restaurant }: RestaurantItemProps) {
             fill
           />
 
-          <div className="absolute left-2 top-2 flex items-center gap-0.5 rounded-full px-2 py-0.5 text-accent-foreground dark:border-accent dark:bg-transparent ">
-            <StarIcon size={16} className="fill-yellow-400 text-yellow-400" />
+          <StarBadge
+            restaurant={restaurant}
+            className="absolute left-2 top-2"
+          />
 
-            <span className="text-xs font-semibold">
-              {Number(restaurant.stars).toFixed(1)}
-            </span>
-          </div>
-
-          <Button
-            size={"icon"}
-            className="absolute right-2 top-2 h-7 w-7 rounded-full bg-muted-foreground px-1"
-          >
-            <HeartIcon
-              size={16}
-              className="h-fit w-fit transition-all hover:fill-white"
-            />
-          </Button>
+          <HeartButton className="absolute right-2 top-2" />
         </div>
 
         <div>

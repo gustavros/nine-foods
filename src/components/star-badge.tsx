@@ -11,7 +11,7 @@ export default function StarBadge({ restaurant, className }: StarBadgeProps) {
   return (
     <div
       className={cn(
-        " flex items-center gap-0.5 rounded-full bg-accent px-2 py-0.5 text-accent-foreground dark:border-accent",
+        "flex items-center gap-0.5 rounded-full bg-background px-2 py-0.5 text-accent-foreground dark:border-accent",
         className,
       )}
     >

@@ -1,5 +1,5 @@
+import { cn } from "@/lib/utils";
 import { Product } from "@prisma/client";
-import clsx from "clsx";
 import { ArrowDownIcon } from "lucide-react";
 
 interface DiscountBadgeProps {
@@ -13,7 +13,7 @@ export default function DiscountBadge({
 }: DiscountBadgeProps) {
   return (
     <div
-      className={clsx(
+      className={cn(
         "flex w-fit items-center gap-1 rounded-full bg-red-500 px-2 py-0.5 text-accent-foreground text-white dark:border-accent",
         className,
       )}
