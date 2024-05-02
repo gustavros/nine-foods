@@ -15,10 +15,10 @@ interface ProductListProps {
   }>[];
 }
 
-export default async function ProductList({ products }: ProductListProps) {
+export default function ProductList({ products }: ProductListProps) {
   return (
-    <Carousel className="cursor-grab">
-      <CarouselContent className="-ml-0 flex gap-4 pb-2">
+    <Carousel>
+      <CarouselContent className="-ml-0 flex  gap-4 pb-2">
         {products.map((product) => (
           <ProductItem key={product.id} product={product} />
         ))}
