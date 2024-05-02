@@ -18,7 +18,7 @@ export default function ProductImage({ product }: ProductImageProps) {
   }
 
   return (
-    <div className="relative h-96 w-full">
+    <div className="relative z-10 h-96 w-full">
       <Image
         src={product.imageUrl}
         alt={product.name}

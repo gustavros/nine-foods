@@ -38,8 +38,8 @@ export default function ProductDetails({ product }: ProductDetailsProps) {
   }
 
   return (
-    <div className="p-5">
-      {/* RESTAURANTE */}
+    <div className="relative z-50 -mt-5 rounded-t-lg bg-white p-5">
+      {/* NOME DO RESTAURANTE */}
       <div className="flex items-center gap-1.5">
         <div className="relative h-6 w-6">
           <Image
