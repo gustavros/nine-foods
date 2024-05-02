@@ -40,7 +40,6 @@ export default function RestaurantItem({ restaurant }: RestaurantItemProps) {
 
       <div>
         <h3 className="text-sm font-semibold">{restaurant.name}</h3>
-        <h2>{Number(restaurant.stars)}</h2>
 
         <div className="flex items-center gap-3">
           <div className="flex items-center gap-1.5">
