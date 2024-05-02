@@ -4,7 +4,12 @@ import { Carousel, CarouselContent } from "@/components/ui/carousel";
 import { db } from "@/lib/prisma";
 
 export default async function RestaurantList() {
-  const restaurants = await db.restaurant.findMany({ take: 10 });
+  const restaurants = await db.restaurant.findMany({
+    take: 10,
+    orderBy: {
+      stars: "desc",
+    },
+  });
 
   return (
     <Carousel className="cursor-grab">
