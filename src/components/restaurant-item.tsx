@@ -19,7 +19,7 @@ export default function RestaurantItem({ restaurant }: RestaurantItemProps) {
           fill
         />
 
-        <div className="absolute left-2 top-2 flex items-center gap-0.5 rounded-full bg-white px-2 py-0.5 text-accent-foreground ">
+        <div className="absolute left-2 top-2 flex items-center gap-0.5 rounded-full px-2 py-0.5 text-accent-foreground dark:border-accent dark:bg-transparent ">
           <StarIcon size={16} className="fill-yellow-400 text-yellow-400" />
 
           <span className="text-xs font-semibold">

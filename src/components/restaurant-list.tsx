@@ -12,7 +12,7 @@ export default async function RestaurantList() {
   });
 
   return (
-    <Carousel className="cursor-grab">
+    <Carousel>
       <CarouselContent className="-ml-0 flex gap-4 pb-2">
         {restaurants.map((restaurant) => (
           <RestaurantItem key={restaurant.id} restaurant={restaurant} />
