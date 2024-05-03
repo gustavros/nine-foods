@@ -5,6 +5,7 @@ import { Prisma } from "@prisma/client";
 import Image from "next/image";
 import Link from "next/link";
 import DiscountBadge from "./discount-badge";
+import { cn } from "@/lib/utils";
 
 interface ProductItemProps {
   product: Prisma.ProductGetPayload<{
@@ -12,13 +13,17 @@ interface ProductItemProps {
       restaurant: true;
     };
   }>;
+  className?: string;
 }
 
-export default function ProductItem({ product }: ProductItemProps) {
+export default function ProductItem({ product, className }: ProductItemProps) {
   return (
-    <Link href={`/products/${product.id}`} className="w-36 min-w-36">
+    <Link
+      href={`/products/${product.id}`}
+      className={cn("w-36 min-w-36", className)}
+    >
       <div className="space-y-2">
-        <div className="relative h-36 w-full cursor-pointer">
+        <div className="relative aspect-square w-full">
           <Image
             fill
             src={product.imageUrl}
@@ -49,7 +54,7 @@ export default function ProductItem({ product }: ProductItemProps) {
             )}
           </div>
 
-          <span className="block text-sm text-muted-foreground">
+          <span className="block text-sm text-muted-foreground transition-colors">
             {product.restaurant.name}
           </span>
         </div>
