@@ -3,7 +3,6 @@ import Header from "@/components/header";
 import ProductList from "@/components/product-list";
 import PromoBanner from "@/components/promo-banner";
 import RestaurantList from "@/components/restaurant-list";
-import Search from "@/components/search";
 import { Button } from "@/components/ui/button";
 import { db } from "@/lib/prisma";
 import { ChevronRight } from "lucide-react";
@@ -40,10 +39,6 @@ export default async function Home() {
   return (
     <>
       <Header />
-
-      <div className="px-5 py-6">
-        <Search />
-      </div>
 
       <div className="px-5 pt-6">
         <CategoryList />
