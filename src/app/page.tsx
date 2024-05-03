@@ -10,13 +10,28 @@ import { ChevronRight } from "lucide-react";
 import Link from "next/link";
 
 export default async function Home() {
-  const products = await db.product.findMany({
+  const pizzaCategoryId = "c74572af-c874-4bd0-b7f2-ce36b1047244";
+  const burguerCategoryId = "4ef01674-dccb-4437-b059-06fde8f0b2ca";
+
+  const pizzas = await db.product.findMany({
     where: {
       discountPercentage: {
         gt: 0,
       },
+      categoryId: pizzaCategoryId,
     },
-    take: 10,
+    include: {
+      restaurant: true,
+    },
+  });
+
+  const burguers = await db.product.findMany({
+    where: {
+      discountPercentage: {
+        gt: 0,
+      },
+      categoryId: burguerCategoryId,
+    },
     include: {
       restaurant: true,
     },
@@ -43,18 +58,20 @@ export default async function Home() {
 
       <div className="px-5">
         <div className="flex items-center justify-between pb-4 pt-6">
-          <h2 className="font-semibold">Pedidos recomendados</h2>
+          <h2 className="font-semibold">Pizzas com desconto</h2>
 
-          <Button
-            variant={"link"}
-            className="flex items-center px-0 text-primary"
-          >
-            Ver todos
-            <ChevronRight size={16} />
-          </Button>
+          <Link href={`/categories/${pizzaCategoryId}/products`}>
+            <Button
+              variant={"link"}
+              className="flex items-center px-0 text-primary"
+            >
+              Ver todas
+              <ChevronRight size={16} />
+            </Button>
+          </Link>
         </div>
 
-        <ProductList products={products} />
+        <ProductList products={pizzas} />
       </div>
 
       <div className="px-5 pt-6">
@@ -66,6 +83,26 @@ export default async function Home() {
 
       <div className="px-5">
         <div className="flex items-center justify-between pb-4 pt-6">
+          <h2 className="font-semibold">Lanches com desconto</h2>
+
+          <Link href={`/categories/${burguerCategoryId}/products`}>
+            <Button
+              variant={"link"}
+              className="flex items-center px-0 text-primary"
+            >
+              Ver todos
+              <ChevronRight size={16} />
+            </Button>
+          </Link>
+        </div>
+
+        <ProductList products={burguers} />
+      </div>
+
+      <hr className="mx-5 my-2" />
+
+      <div className="px-5">
+        <div className="flex items-center justify-between pb-4 pt-6">
           <h2 className="font-semibold">Restaurantes recomendados</h2>
 
           <Button
@@ -73,7 +110,7 @@ export default async function Home() {
             className="flex items-center px-0 text-primary"
             asChild
           >
-            <Link href={"/recommended"}>
+            <Link href={"/restaurants/recommended"}>
               Ver todos
               <ChevronRight size={16} />
             </Link>
