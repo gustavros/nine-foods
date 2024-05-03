@@ -6,7 +6,7 @@ import "./globals.css";
 const grotesk = Space_Grotesk({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
-  title: "ifood.",
+  title: "nine foods.",
   description: "The best food delivery service in the city.",
 };
 
