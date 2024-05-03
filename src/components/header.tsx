@@ -6,7 +6,7 @@ export default function Header() {
   return (
     <div className="flex items-center justify-between px-5 pt-6">
       <Link href="/" className="font-bold">
-        ifood.
+        nine foods.
       </Link>
 
       <Button size="icon" variant="ghost">
