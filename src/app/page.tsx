@@ -60,15 +60,16 @@ export default async function Home() {
         <div className="flex items-center justify-between pb-4 pt-6">
           <h2 className="font-semibold">Pizzas com desconto</h2>
 
-          <Link href={`/categories/${pizzaCategoryId}/products`}>
-            <Button
-              variant={"link"}
-              className="flex items-center px-0 text-primary"
-            >
+          <Button
+            asChild
+            variant={"link"}
+            className="flex items-center px-0 text-primary"
+          >
+            <Link href={`/categories/${pizzaCategoryId}/products`}>
               Ver todas
               <ChevronRight size={16} />
-            </Button>
-          </Link>
+            </Link>
+          </Button>
         </div>
 
         <ProductList products={pizzas} />
@@ -85,15 +86,16 @@ export default async function Home() {
         <div className="flex items-center justify-between pb-4 pt-6">
           <h2 className="font-semibold">Lanches com desconto</h2>
 
-          <Link href={`/categories/${burguerCategoryId}/products`}>
-            <Button
-              variant={"link"}
-              className="flex items-center px-0 text-primary"
-            >
+          <Button
+            asChild
+            variant={"link"}
+            className="flex items-center px-0 text-primary"
+          >
+            <Link href={`/categories/${burguerCategoryId}/products`}>
               Ver todos
               <ChevronRight size={16} />
-            </Button>
-          </Link>
+            </Link>
+          </Button>
         </div>
 
         <ProductList products={burguers} />
