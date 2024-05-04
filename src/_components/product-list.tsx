@@ -1,6 +1,6 @@
 import ProductItem from "./product-item";
 
-import { Carousel, CarouselContent } from "@/components/ui/carousel";
+import { Carousel, CarouselContent } from "@/_components/ui/carousel";
 import { Prisma } from "@prisma/client";
 
 interface ProductListProps {

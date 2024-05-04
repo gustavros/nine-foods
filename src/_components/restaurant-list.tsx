@@ -1,7 +1,7 @@
 import RestaurantItem from "./restaurant-item";
 
-import { Carousel, CarouselContent } from "@/components/ui/carousel";
-import { db } from "@/lib/prisma";
+import { Carousel, CarouselContent } from "@/_components/ui/carousel";
+import { db } from "@/_lib/prisma";
 
 export default async function RestaurantList() {
   const restaurants = await db.restaurant.findMany({

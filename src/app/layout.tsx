@@ -1,7 +1,8 @@
-import { ThemeProvider } from "@/components/theme-provider/theme-provider";
 import type { Metadata } from "next";
 import { Space_Grotesk } from "next/font/google";
 import "./globals.css";
+import { CartProvider } from "@/_context/cart";
+import { ThemeProvider } from "@/_components/theme-provider/theme-provider";
 
 const grotesk = Space_Grotesk({ subsets: ["latin"] });
 
@@ -20,7 +21,7 @@ export default function RootLayout({
       <head />
       <body className={grotesk.className}>
         <ThemeProvider attribute="class" defaultTheme="system" enableSystem>
-          {children}
+          <CartProvider>{children}</CartProvider>
         </ThemeProvider>
       </body>
     </html>

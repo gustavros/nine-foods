@@ -1,11 +1,11 @@
-import CategoryItem from "@/components/category-item";
-import DeliveryInfo from "@/components/delivery-info";
-import ProductItem from "@/components/product-item";
-import ProductList from "@/components/product-list";
-import RestaurantImage from "@/components/restaurant-image";
-import StarBadge from "@/components/star-badge";
-import { Carousel, CarouselContent } from "@/components/ui/carousel";
-import { db } from "@/lib/prisma";
+import CategoryItem from "@/_components/category-item";
+import DeliveryInfo from "@/_components/delivery-info";
+import ProductItem from "@/_components/product-item";
+import ProductList from "@/_components/product-list";
+import RestaurantImage from "@/_components/restaurant-image";
+import StarBadge from "@/_components/star-badge";
+import { Carousel, CarouselContent } from "@/_components/ui/carousel";
+import { db } from "@/_lib/prisma";
 import Image from "next/image";
 import { notFound } from "next/navigation";
 

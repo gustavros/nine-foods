@@ -1,6 +1,6 @@
 import { HeartIcon } from "lucide-react";
 import { Button } from "./ui/button";
-import { cn } from "@/lib/utils";
+import { cn } from "@/_lib/utils";
 
 interface HeartButtonProps {
   className?: string;

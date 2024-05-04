@@ -1,11 +1,11 @@
 "use client";
 
-import { calculateProductTotalPrice, formatCurrency } from "@/helpers/price";
+import { calculateProductTotalPrice, formatCurrency } from "@/_helpers/price";
 import { Prisma } from "@prisma/client";
 import Image from "next/image";
 import Link from "next/link";
 import DiscountBadge from "./discount-badge";
-import { cn } from "@/lib/utils";
+import { cn } from "@/_lib/utils";
 
 interface ProductItemProps {
   product: Prisma.ProductGetPayload<{

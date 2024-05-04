@@ -1,9 +1,9 @@
-import { formatCurrency } from "@/helpers/price";
+import { formatCurrency } from "@/_helpers/price";
 import { Restaurant } from "@prisma/client";
 import { BikeIcon, TimerIcon } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
-import { cn } from "@/lib/utils";
+import { cn } from "@/_lib/utils";
 import StarBadge from "./star-badge";
 import HeartButton from "./heart-button";
 

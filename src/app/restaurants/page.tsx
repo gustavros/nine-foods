@@ -3,9 +3,9 @@
 import { useSearchParams } from "next/navigation";
 import { useEffect, useState } from "react";
 import searchForRestaurants from "./_actions/search";
-import Header from "@/components/header";
-import RestaurantRecommendedSkeleton from "@/components/restaurant-recommended-skeleton";
-import RestaurantRecommendedItem from "@/components/restaurant-recommended-item";
+import Header from "@/_components/header";
+import RestaurantRecommendedSkeleton from "@/_components/restaurant-recommended-skeleton";
+import RestaurantRecommendedItem from "@/_components/restaurant-recommended-item";
 
 export default function Restaurants() {
   const searchParams = useSearchParams();

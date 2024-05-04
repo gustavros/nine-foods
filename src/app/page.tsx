@@ -1,10 +1,10 @@
-import CategoryList from "@/components/category-list";
-import Header from "@/components/header";
-import ProductList from "@/components/product-list";
-import PromoBanner from "@/components/promo-banner";
-import RestaurantList from "@/components/restaurant-list";
-import { Button } from "@/components/ui/button";
-import { db } from "@/lib/prisma";
+import CategoryList from "@/_components/category-list";
+import Header from "@/_components/header";
+import ProductList from "@/_components/product-list";
+import PromoBanner from "@/_components/promo-banner";
+import RestaurantList from "@/_components/restaurant-list";
+import { Button } from "@/_components/ui/button";
+import { db } from "@/_lib/prisma";
 import { ChevronRight } from "lucide-react";
 import Link from "next/link";
 

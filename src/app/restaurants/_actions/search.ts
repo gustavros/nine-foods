@@ -1,6 +1,6 @@
 "use server";
 
-import { db } from "@/lib/prisma";
+import { db } from "@/_lib/prisma";
 
 export default async function searchForRestaurants(search: string) {
   const restaurants = await db.restaurant.findMany({

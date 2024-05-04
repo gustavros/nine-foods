@@ -1,5 +1,5 @@
-import Header from "@/components/header";
-import ProductItem from "@/components/product-item";
+import Header from "@/_components/header";
+import ProductItem from "@/_components/product-item";
 import {
   Pagination,
   PaginationContent,
@@ -7,9 +7,9 @@ import {
   PaginationPrevious,
   PaginationLink,
   PaginationNext,
-} from "@/components/ui/pagination";
+} from "@/_components/ui/pagination";
 
-import { db } from "@/lib/prisma";
+import { db } from "@/_lib/prisma";
 import { notFound } from "next/navigation";
 
 interface CategoriesPageProps {

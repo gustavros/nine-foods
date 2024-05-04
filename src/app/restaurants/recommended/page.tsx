@@ -1,6 +1,6 @@
-import Header from "@/components/header";
-import RestaurantRecommendedItem from "@/components/restaurant-recommended-item";
-import { db } from "@/lib/prisma";
+import Header from "@/_components/header";
+import RestaurantRecommendedItem from "@/_components/restaurant-recommended-item";
+import { db } from "@/_lib/prisma";
 
 interface RecommendedRestaurantsProps {}
 

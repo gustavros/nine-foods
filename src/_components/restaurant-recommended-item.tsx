@@ -2,7 +2,7 @@ import { Prisma } from "@prisma/client";
 import Image from "next/image";
 import Link from "next/link";
 import HeartButton from "./heart-button";
-import { formatCurrency } from "@/helpers/price";
+import { formatCurrency } from "@/_helpers/price";
 import StarBadge from "./star-badge";
 
 interface RestaurantRecommendedItemProps {
