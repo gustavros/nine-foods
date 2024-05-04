@@ -1,10 +1,8 @@
 import Header from "@/_components/header";
-import RestaurantRecommendedItem from "@/_components/restaurant-recommended-item";
+import RestaurantRecommendedItem from "@/app/restaurants/recommended/_components/restaurant-recommended-item";
 import { db } from "@/_lib/prisma";
 
-interface RecommendedRestaurantsProps {}
-
-export default async function RecommendedRestaurants({}: RecommendedRestaurantsProps) {
+export default async function RecommendedRestaurants() {
   const restaurants = await db.restaurant.findMany({
     orderBy: {
       stars: "desc",

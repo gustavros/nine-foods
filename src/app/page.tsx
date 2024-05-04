@@ -45,10 +45,12 @@ export default async function Home() {
       </div>
 
       <div className="px-5 pt-6">
-        <PromoBanner
-          src={"/promo-banner-01.png"}
-          alt="Até 30% de desconto em pizzas."
-        />
+        <Link href={`/categories/${pizzaCategoryId}/products`}>
+          <PromoBanner
+            src={"/promo-banner-01.png"}
+            alt="Até 30% de desconto em pizzas."
+          />
+        </Link>
       </div>
 
       <div className="px-5">
@@ -71,10 +73,12 @@ export default async function Home() {
       </div>
 
       <div className="px-5 pt-6">
-        <PromoBanner
-          src={"/promo-banner-02.png"}
-          alt="A partir de R$ 17,90 em lanches."
-        />
+        <Link href={`/categories/${burguerCategoryId}/products`}>
+          <PromoBanner
+            src={"/promo-banner-02.png"}
+            alt="A partir de R$ 17,90 em lanches."
+          />
+        </Link>
       </div>
 
       <div className="px-5">
