@@ -3,6 +3,7 @@ import { Space_Grotesk } from "next/font/google";
 import "./globals.css";
 import { CartProvider } from "@/_context/cart";
 import { ThemeProvider } from "@/_components/theme-provider/theme-provider";
+import AuthProvider from "@/_providers/auth";
 
 const grotesk = Space_Grotesk({ subsets: ["latin"] });
 
@@ -20,9 +21,11 @@ export default function RootLayout({
     <html lang="en">
       <head />
       <body className={grotesk.className}>
-        <ThemeProvider attribute="class" defaultTheme="system" enableSystem>
-          <CartProvider>{children}</CartProvider>
-        </ThemeProvider>
+        <AuthProvider>
+          <ThemeProvider attribute="class" defaultTheme="system" enableSystem>
+            <CartProvider>{children}</CartProvider>
+          </ThemeProvider>
+        </AuthProvider>
       </body>
     </html>
   );
