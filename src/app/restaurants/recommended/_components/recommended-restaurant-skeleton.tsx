@@ -1,8 +1,8 @@
 import { Skeleton } from "../../../../_components/ui/skeleton";
 
-interface RestaurantRecommendedSkeletonProps {}
+interface RecommendedRestaurantSkeletonProps {}
 
-export default function RestaurantRecommendedSkeleton({}: RestaurantRecommendedSkeletonProps) {
+export default function RecommendedRestaurantSkeleton({}: RecommendedRestaurantSkeletonProps) {
   return (
     <div className="relative flex gap-6 rounded-lg border border-muted px-4 py-4">
       <Skeleton className="relative h-24 w-24 " />

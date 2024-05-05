@@ -5,7 +5,7 @@ import HeartButton from "@/_components/heart-button";
 import { formatCurrency } from "@/_helpers/price";
 import StarBadge from "@/_components/star-badge";
 
-interface RestaurantRecommendedItemProps {
+interface RecommendedRestaurantItemProps {
   restaurant: Prisma.RestaurantGetPayload<{
     include: {
       categories: true;
@@ -13,9 +13,9 @@ interface RestaurantRecommendedItemProps {
   }>;
 }
 
-export default function RestaurantRecommendedItem({
+export default function RecommendedRestaurantItem({
   restaurant,
-}: RestaurantRecommendedItemProps) {
+}: RecommendedRestaurantItemProps) {
   return (
     <Link
       href={`/restaurants/${restaurant.id}`}

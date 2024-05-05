@@ -1,5 +1,5 @@
 import Header from "@/_components/header";
-import RestaurantRecommendedItem from "@/app/restaurants/recommended/_components/restaurant-recommended-item";
+import RestaurantRecommendedItem from "@/app/restaurants/recommended/_components/recommended-restaurant-item";
 import { db } from "@/_lib/prisma";
 
 export default async function RecommendedRestaurants() {
