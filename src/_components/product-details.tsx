@@ -53,7 +53,7 @@ export default function ProductDetails({
   function addToCart({ emptyCart = false }: { emptyCart?: boolean }) {
     addProductToCart({ product, quantity, emptyCart });
 
-    router.back();
+    router.push(`/restaurants/${product.restaurant.id}`);
   }
 
   function handleAddToCartClick() {
