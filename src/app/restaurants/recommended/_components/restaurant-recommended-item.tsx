@@ -4,13 +4,6 @@ import Link from "next/link";
 import HeartButton from "@/_components/heart-button";
 import { formatCurrency } from "@/_helpers/price";
 import StarBadge from "@/_components/star-badge";
-import { Star } from "lucide-react";
-import {
-  Tooltip,
-  TooltipContent,
-  TooltipProvider,
-  TooltipTrigger,
-} from "@/_components/ui/tooltip";
 
 interface RestaurantRecommendedItemProps {
   restaurant: Prisma.RestaurantGetPayload<{
@@ -74,22 +67,6 @@ export default function RestaurantRecommendedItem({
         restaurant={restaurant}
         className="absolute right-4 top-4 bg-transparent p-0 text-xs"
       />
-
-      {Number(restaurant.stars) >= 4.5 && (
-        <TooltipProvider>
-          <Tooltip>
-            <TooltipTrigger>
-              {" "}
-              <div className="absolute -right-2 -top-2 flex h-4 w-4 items-center justify-center rounded-full bg-red-600">
-                <Star size={10} className="fill-slate-50" />
-              </div>
-            </TooltipTrigger>
-            <TooltipContent side="top">
-              <p className="text-xs font-medium">Restaurante bem avaliado.</p>
-            </TooltipContent>
-          </Tooltip>
-        </TooltipProvider>
-      )}
     </Link>
   );
 }
