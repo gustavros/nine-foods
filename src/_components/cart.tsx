@@ -15,7 +15,7 @@ export default function Cart({}: CartProps) {
     <div className="flex h-full flex-col justify-between space-y-3 py-5">
       {products.length > 0 ? (
         <>
-          <div className="space-y-3">
+          <div className="h-auto space-y-3 overflow-y-auto">
             {products.map((product) => (
               <CartItem key={product.id} cartProduct={product} />
             ))}

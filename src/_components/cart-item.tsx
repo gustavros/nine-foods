@@ -51,6 +51,9 @@ export default function CartItem({ cartProduct }: CartItemProps) {
           <div className="flex flex-col justify-between gap-5">
             <div>
               <h3 className="text-xs">{cartProduct.name}</h3>
+              <p className="w-36 truncate text-sm text-muted-foreground">
+                {cartProduct.description}
+              </p>
 
               <div className="flex items-center gap-1">
                 <h4>

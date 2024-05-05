@@ -21,8 +21,8 @@ import {
   AlertDialogFooter,
   AlertDialogHeader,
   AlertDialogTitle,
-  AlertDialogTrigger,
 } from "./ui/alert-dialog";
+import { useRouter } from "next/navigation";
 
 interface ProductDetailsProps {
   product: Prisma.ProductGetPayload<{
@@ -48,11 +48,12 @@ export default function ProductDetails({
 
   const { addProductToCart, products } = useContext(CartContext);
 
+  const router = useRouter();
+
   function addToCart({ emptyCart = false }: { emptyCart?: boolean }) {
     addProductToCart({ product, quantity, emptyCart });
-    setIsCartOpen(true);
 
-    setQuantity(1);
+    router.back();
   }
 
   function handleAddToCartClick() {
@@ -183,7 +184,6 @@ export default function ProductDetails({
         open={isConfirmationDialogOpen}
         onOpenChange={setIsConfirmationDialogOpen}
       >
-        <AlertDialogTrigger>Open</AlertDialogTrigger>
         <AlertDialogContent>
           <AlertDialogHeader>
             <AlertDialogTitle>

@@ -8,6 +8,7 @@ import { Carousel, CarouselContent } from "@/_components/ui/carousel";
 import { db } from "@/_lib/prisma";
 import Image from "next/image";
 import { notFound } from "next/navigation";
+import CartBanner from "./_components/cart-banner";
 
 interface ProductPageProps {
   params: {
@@ -104,6 +105,8 @@ export default async function ProductPage({
           <ProductList products={category.products} />
         </div>
       ))}
+
+      <CartBanner restaurant={restaurant} />
     </div>
   );
 }
