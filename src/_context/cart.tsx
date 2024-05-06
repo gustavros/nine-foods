@@ -11,6 +11,8 @@ export interface CartProduct
       restaurant: {
         select: {
           deliveryFee: true;
+          deliveryTimeMinutes: true;
+          id: true;
         };
       };
     };
@@ -44,6 +46,7 @@ interface ICartContext {
   increaseProductQuantity: (productId: string) => void;
   decreaseProductQuantity: (productId: string) => void;
   removeProductFromCart: (productId: string) => void;
+  clearCart: () => void;
 }
 
 export const CartContext = createContext<ICartContext>({
@@ -56,10 +59,15 @@ export const CartContext = createContext<ICartContext>({
   decreaseProductQuantity: () => {},
   increaseProductQuantity: () => {},
   removeProductFromCart: () => {},
+  clearCart: () => {},
 });
 
 export const CartProvider = ({ children }: { children: ReactNode }) => {
   const [products, setProducts] = useState<CartProduct[]>([]);
+
+  function clearCart() {
+    return setProducts([]);
+  }
 
   const totalQuantity = useMemo(() => {
     return products.reduce((acc, product) => {
@@ -130,7 +138,11 @@ export const CartProvider = ({ children }: { children: ReactNode }) => {
     emptyCart,
   }: {
     product: Prisma.ProductGetPayload<{
-      include: { restaurant: { select: { deliveryFee: true } } };
+      include: {
+        restaurant: {
+          select: { deliveryFee: true; id: true; deliveryTimeMinutes: true };
+        };
+      };
     }>;
     quantity: number;
     emptyCart?: boolean;
@@ -177,6 +189,7 @@ export const CartProvider = ({ children }: { children: ReactNode }) => {
         totalPrice,
         totalDiscounts,
         totalQuantity,
+        clearCart,
       }}
     >
       {children}

@@ -17,6 +17,7 @@ model Restaurant {
 
   categories Category[]
   products   Product[]
+  orders     Order[]
 }
 
 model Category {
@@ -40,6 +41,9 @@ model Product {
   restaurant   Restaurant @relation(fields: [restaurantId], references: [id])
   categoryId   String
   category     Category   @relation(fields: [categoryId], references: [id])
+
+  orders  Order?  @relation(fields: [orderId], references: [id])
+  orderId String?
 }
 
 model Account {
@@ -62,6 +66,26 @@ model Account {
   @@map("accounts")
 }
 
+model Order {
+  id       String    @id @default(uuid())
+  userId   String
+  user     User      @relation(fields: [userId], references: [id])
+  products Product[]
+
+  restaurant   Restaurant @relation(fields: [restaurantId], references: [id])
+  restaurantId String
+
+  deliveryFee         Decimal @db.Decimal(10, 2)
+  deliveryTimeMinutes Int
+  subtotalPrice       Decimal @db.Decimal(10, 2)
+  totalDiscounts      Decimal @db.Decimal(10, 2)
+  totalPrice          Decimal @db.Decimal(10, 2)
+
+  createdAt DateTime @default(now())
+
+  status OrderStatus
+}
+
 model Session {
   id           String   @id @default(cuid())
   sessionToken String   @unique @map("session_token")
@@ -80,6 +104,7 @@ model User {
   image         String?
   accounts      Account[]
   sessions      Session[]
+  orders        Order[]
 
   @@map("users")
 }
@@ -91,4 +116,12 @@ model VerificationToken {
 
   @@unique([identifier, token])
   @@map("verificationtokens")
+}
+
+enum OrderStatus {
+  CONFIRMED
+  CANCELED
+  PREPARING
+  DELIVERING
+  FINISHED
 }
