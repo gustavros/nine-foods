@@ -9,8 +9,8 @@ import { ChevronRight } from "lucide-react";
 import Link from "next/link";
 
 export default async function Home() {
-  const pizzaCategoryId = "c74572af-c874-4bd0-b7f2-ce36b1047244";
-  const burguerCategoryId = "4ef01674-dccb-4437-b059-06fde8f0b2ca";
+  const pizzaCategoryId = "ea74af8a-76e7-44a5-a4a0-1081fd3d8b13";
+  const burguerCategoryId = "e96b9bc2-643d-434f-abb6-ed4c10e1c6bc";
 
   const pizzas = await db.product.findMany({
     where: {
