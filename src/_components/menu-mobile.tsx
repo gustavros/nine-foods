@@ -23,6 +23,7 @@ import {
 } from "./ui/sheet";
 
 import { Avatar, AvatarFallback, AvatarImage } from "./ui/avatar";
+import Link from "next/link";
 
 interface MenuMobileProps {}
 
@@ -79,12 +80,15 @@ export default function MenuMobile({}: MenuMobileProps) {
           </Button>
 
           <Button
+            asChild
             variant={"ghost"}
             className="flex w-full items-center justify-start gap-3"
           >
-            <ScrollTextIcon size={16} />
+            <Link href="/my-orders">
+              <ScrollTextIcon size={16} />
 
-            <p className="text-sm">Meus pedidos</p>
+              <p className="text-sm">Meus pedidos</p>
+            </Link>
           </Button>
 
           <Button

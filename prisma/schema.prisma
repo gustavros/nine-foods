@@ -42,8 +42,36 @@ model Product {
   categoryId   String
   category     Category   @relation(fields: [categoryId], references: [id])
 
-  orders  Order?  @relation(fields: [orderId], references: [id])
-  orderId String?
+  orderProducts OrderProduct[]
+}
+
+model OrderProduct {
+  id      String @id @default(uuid())
+  order   Order  @relation(fields: [orderId], references: [id])
+  orderId String
+
+  productId String
+  product   Product @relation(fields: [productId], references: [id])
+  quantity  Int
+}
+
+model Order {
+  id                  String         @id @default(uuid())
+  userId              String
+  user                User           @relation(fields: [userId], references: [id])
+  orderProducts       OrderProduct[]
+  restaurant          Restaurant     @relation(fields: [restaurantId], references: [id])
+  restaurantId        String
+  deliveryFee         Decimal        @db.Decimal(10, 2)
+  deliveryTimeMinutes Int
+
+  subtotalPrice  Decimal @db.Decimal(10, 2)
+  totalPrice     Decimal @db.Decimal(10, 2)
+  totalDiscounts Decimal @db.Decimal(10, 2)
+
+  createdAt DateTime @default(now())
+
+  status OrderStatus
 }
 
 model Account {
@@ -64,26 +92,6 @@ model Account {
 
   @@unique([provider, providerAccountId])
   @@map("accounts")
-}
-
-model Order {
-  id       String    @id @default(uuid())
-  userId   String
-  user     User      @relation(fields: [userId], references: [id])
-  products Product[]
-
-  restaurant   Restaurant @relation(fields: [restaurantId], references: [id])
-  restaurantId String
-
-  deliveryFee         Decimal @db.Decimal(10, 2)
-  deliveryTimeMinutes Int
-  subtotalPrice       Decimal @db.Decimal(10, 2)
-  totalDiscounts      Decimal @db.Decimal(10, 2)
-  totalPrice          Decimal @db.Decimal(10, 2)
-
-  createdAt DateTime @default(now())
-
-  status OrderStatus
 }
 
 model Session {

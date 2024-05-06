@@ -8,8 +8,11 @@ import createOrder from "@/_actions/order";
 import { OrderStatus } from "@prisma/client";
 import { useSession } from "next-auth/react";
 import { Loader2 } from "lucide-react";
+import { useRouter } from "next/navigation";
 
 export default function Cart() {
+  const router = useRouter();
+
   const [isSubmitLoading, setIsSubmitLoading] = useState(false);
 
   const { products, totalPrice, totalDiscounts, subtotalPrice, clearCart } =
@@ -41,9 +44,19 @@ export default function Cart() {
             id: data.user.id,
           },
         },
+        orderProducts: {
+          createMany: {
+            data: products.map((product) => ({
+              productId: product.id,
+              quantity: product.quantity,
+            })),
+          },
+        },
       });
 
       clearCart();
+
+      router.push("/my-orders");
     } catch (error) {
       console.log(error);
     } finally {
