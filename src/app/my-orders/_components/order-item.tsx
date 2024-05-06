@@ -1,10 +1,14 @@
+"use client";
+
 import { Avatar, AvatarImage } from "@/_components/ui/avatar";
 import { Button } from "@/_components/ui/button";
 import { Card, CardContent } from "@/_components/ui/card";
+import { CartContext } from "@/_context/cart";
 import { formatCurrency } from "@/_helpers/price";
 import { OrderStatus, Prisma } from "@prisma/client";
 import { ChevronRightIcon } from "lucide-react";
 import Link from "next/link";
+import { useContext } from "react";
 
 interface OrderItemProps {
   order: Prisma.OrderGetPayload<{
@@ -35,6 +39,17 @@ const getOrderStatusLabel = (status: OrderStatus) => {
 };
 
 export default function OrderItem({ order }: OrderItemProps) {
+  const { addProductToCart } = useContext(CartContext);
+
+  function handleRedoOrderClick() {
+    for (const orderProduct of order.orderProducts) {
+      addProductToCart({
+        product: { ...orderProduct.product, restaurant: order.restaurant },
+        quantity: orderProduct.quantity,
+      });
+    }
+  }
+
   return (
     <Card>
       <CardContent className="p-5">
@@ -46,17 +61,33 @@ export default function OrderItem({ order }: OrderItemProps) {
           </span>
         </div>
         <div className="flex items-center justify-between pt-3">
-          <div className="flex items-center gap-2">
-            <Avatar className="h-6 w-6">
-              <AvatarImage
-                src={order.restaurant.imageUrl}
-                className={`${order.status === "FINISHED" && "grayscale filter"}`}
-              />
-            </Avatar>
+          <div className="flex flex-col gap-3">
+            <div className="flex items-center gap-2">
+              <Avatar className="h-6 w-6">
+                <AvatarImage
+                  src={order.restaurant.imageUrl}
+                  className={`${order.status === "FINISHED" && "grayscale filter"}`}
+                />
+              </Avatar>
 
-            <span className="text-sm font-semibold">
-              {order.restaurant.name}
-            </span>
+              <span className="text-sm font-semibold">
+                {order.restaurant.name}
+              </span>
+            </div>
+
+            <p className="text-sm ">
+              Data do pedido{" "}
+              {new Date(order.createdAt).toLocaleDateString("pt-BR", {
+                day: "2-digit",
+                month: "numeric",
+                year: "numeric",
+              })}{" "}
+              •{" "}
+              {new Date(order.createdAt).toLocaleTimeString("pt-BR", {
+                hour: "2-digit",
+                minute: "2-digit",
+              })}
+            </p>
           </div>
 
           <Button variant="link" size="icon" className="h-5 w-5 " asChild>
@@ -92,6 +123,7 @@ export default function OrderItem({ order }: OrderItemProps) {
             size="sm"
             className="text-xs text-primary"
             disabled={order.status !== "FINISHED"}
+            onClick={handleRedoOrderClick}
           >
             Refazer pedido
           </Button>

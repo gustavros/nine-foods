@@ -9,6 +9,7 @@ import { OrderStatus } from "@prisma/client";
 import { useSession } from "next-auth/react";
 import { Loader2 } from "lucide-react";
 import { useRouter } from "next/navigation";
+import { toast } from "sonner";
 
 export default function Cart() {
   const router = useRouter();
@@ -56,7 +57,14 @@ export default function Cart() {
 
       clearCart();
 
-      router.push("/my-orders");
+      toast("Pedido finalizado com sucesso!", {
+        description:
+          "Você pode acompanhar o status do seu pedido na página de pedidos.",
+        action: {
+          label: "Meus pedidos",
+          onClick: () => router.push("/my-orders"),
+        },
+      });
     } catch (error) {
       console.log(error);
     } finally {
