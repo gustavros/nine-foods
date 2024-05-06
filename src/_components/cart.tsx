@@ -6,10 +6,10 @@ import { formatCurrency } from "@/_helpers/price";
 import { Button } from "./ui/button";
 import createOrder from "@/_actions/order";
 import { OrderStatus } from "@prisma/client";
-import { useSession } from "next-auth/react";
 import { Loader2 } from "lucide-react";
 import { useRouter } from "next/navigation";
 import { toast } from "sonner";
+import { signIn, useSession } from "next-auth/react";
 
 export default function Cart() {
   const router = useRouter();
@@ -22,7 +22,9 @@ export default function Cart() {
   const { data } = useSession();
 
   async function handleFinishOrderClick() {
-    if (!data) return;
+    if (!data?.user) {
+      return signIn("google");
+    }
 
     const restaurant = products?.[0].restaurant;
 
@@ -136,7 +138,7 @@ export default function Cart() {
                 {isSubmitLoading && (
                   <Loader2 className="mr-2 h-4 w-4 animate-spin" />
                 )}
-                Finalizar pedido
+                {isSubmitLoading ? "Finalizando..." : "Finalizar pedido"}
               </Button>
             </div>
           </>

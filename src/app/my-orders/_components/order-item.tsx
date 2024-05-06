@@ -8,6 +8,7 @@ import { formatCurrency } from "@/_helpers/price";
 import { OrderStatus, Prisma } from "@prisma/client";
 import { ChevronRightIcon } from "lucide-react";
 import Link from "next/link";
+import { useRouter } from "next/navigation";
 import { useContext } from "react";
 
 interface OrderItemProps {
@@ -41,6 +42,8 @@ const getOrderStatusLabel = (status: OrderStatus) => {
 export default function OrderItem({ order }: OrderItemProps) {
   const { addProductToCart } = useContext(CartContext);
 
+  const router = useRouter();
+
   function handleRedoOrderClick() {
     for (const orderProduct of order.orderProducts) {
       addProductToCart({
@@ -48,6 +51,8 @@ export default function OrderItem({ order }: OrderItemProps) {
         quantity: orderProduct.quantity,
       });
     }
+
+    router.push(`/restaurants/${order.restaurantId}`);
   }
 
   return (
