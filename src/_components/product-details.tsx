@@ -184,12 +184,12 @@ export default function ProductDetails({
         open={isConfirmationDialogOpen}
         onOpenChange={setIsConfirmationDialogOpen}
       >
-        <AlertDialogContent>
+        <AlertDialogContent className="flex flex-col items-center">
           <AlertDialogHeader>
-            <AlertDialogTitle>
-              Você só pode adicionar itens de um restaurante ou mercado por vez
+            <AlertDialogTitle className="text-center">
+              Você só pode adicionar itens de um restaurante por vez
             </AlertDialogTitle>
-            <AlertDialogDescription>
+            <AlertDialogDescription className="text-center">
               Deseja esvaziar a sacola e adicionar este item?
             </AlertDialogDescription>
           </AlertDialogHeader>
