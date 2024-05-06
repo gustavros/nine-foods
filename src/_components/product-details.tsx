@@ -171,7 +171,7 @@ export default function ProductDetails({
       </div>
 
       <Sheet open={isCartOpen} onOpenChange={setIsCartOpen}>
-        <SheetContent className="w-[90vw]">
+        <SheetContent className="w-dvw">
           <SheetHeader className="flex w-full items-center justify-between">
             <h2 className="text-left text-lg font-semibold">Sacola</h2>
           </SheetHeader>

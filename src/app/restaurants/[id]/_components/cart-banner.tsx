@@ -49,7 +49,7 @@ export default function CartBanner({ restaurant }: CartBannerProps) {
           <SheetTrigger>
             <Button>Ver sacola</Button>
           </SheetTrigger>
-          <SheetContent className="w-[90vw]">
+          <SheetContent className="w-dvw">
             <SheetHeader className="flex w-full items-center justify-between">
               <h2 className="text-left text-lg font-semibold">Sacola</h2>
             </SheetHeader>

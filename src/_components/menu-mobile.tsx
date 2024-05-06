@@ -37,7 +37,7 @@ export default function MenuMobile({}: MenuMobileProps) {
           <MenuIcon />
         </Button>
       </SheetTrigger>
-      <SheetContent className="w-[90vw]">
+      <SheetContent className="w-dvw ">
         <SheetHeader>
           <SheetTitle className="text-left">Menu</SheetTitle>
         </SheetHeader>
@@ -72,7 +72,7 @@ export default function MenuMobile({}: MenuMobileProps) {
 
         <hr className="my-6" />
 
-        <div className="flex flex-col gap-1">
+        <div className="flex flex-col gap-1 ">
           <Button className="flex w-full items-center justify-start gap-3">
             <HomeIcon size={16} />
 
