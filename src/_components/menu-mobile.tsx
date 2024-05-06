@@ -28,6 +28,13 @@ import Link from "next/link";
 export default function MenuMobile() {
   const { data } = useSession();
 
+  // CRIAR FUNÇÃO PARA FAZER LOGIN SE O USUARIO NÃO ESTIVER LOGADO
+  function handleWithLoginIfUserNotLogged() {
+    if (!data?.user) {
+      return signIn("google");
+    }
+  }
+
   return (
     <Sheet>
       <SheetTrigger asChild>
@@ -81,6 +88,7 @@ export default function MenuMobile() {
             asChild
             variant={"ghost"}
             className="flex w-full items-center justify-start gap-3"
+            onClick={handleWithLoginIfUserNotLogged}
           >
             <Link href="/my-orders">
               <ScrollTextIcon size={16} />
@@ -92,6 +100,7 @@ export default function MenuMobile() {
           <Button
             variant={"ghost"}
             className="flex w-full items-center justify-start gap-3"
+            onClick={handleWithLoginIfUserNotLogged}
           >
             <HeartIcon size={16} />
 

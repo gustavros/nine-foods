@@ -37,9 +37,18 @@ export default async function MyOrdersPage() {
         <h2 className="font-semibold">Meus pedidos</h2>
 
         <div className="space-y-3">
-          {orders.map((order) => (
-            <OrderItem key={order.id} order={order} />
-          ))}
+          {orders.length === 0 ? (
+            <div className="flex flex-col  gap-2">
+              <p className="text-sm text-muted-foreground">
+                Nenhum pedido encontrado. Faça seu pedido clicando{" "}
+                <a className=" underline " href="restaurants/recommended">
+                  aqui
+                </a>
+              </p>
+            </div>
+          ) : (
+            orders.map((order) => <OrderItem key={order.id} order={order} />)
+          )}
         </div>
       </div>
     </>
