@@ -25,9 +25,7 @@ import {
 import { Avatar, AvatarFallback, AvatarImage } from "./ui/avatar";
 import Link from "next/link";
 
-interface MenuMobileProps {}
-
-export default function MenuMobile({}: MenuMobileProps) {
+export default function MenuMobile() {
   const { data } = useSession();
 
   return (
