@@ -1,5 +1,5 @@
 import { formatCurrency } from "@/_helpers/price";
-import { Restaurant } from "@prisma/client";
+import { Restaurant, UserFavoritesRestaurants } from "@prisma/client";
 import { BikeIcon, TimerIcon } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
@@ -10,29 +10,41 @@ import HeartButton from "./heart-button";
 interface RestaurantItemProps {
   restaurant: Restaurant;
   className?: string;
+  userId?: string;
+  userFavoritedRestaurants: UserFavoritesRestaurants[];
 }
 
 export default function RestaurantItem({
   restaurant,
   className,
+  userId,
+  userFavoritedRestaurants,
 }: RestaurantItemProps) {
   return (
-    <Link href={`/restaurants/${restaurant.id}`}>
+    <div>
       <div className={cn("min-w-64 max-w-64 space-y-3", className)}>
         <div className="relative h-36 w-full">
-          <Image
-            src={restaurant.imageUrl}
-            alt={restaurant.name}
-            className="rounded-lg object-cover"
-            fill
-          />
+          <Link href={`/restaurants/${restaurant.id}`}>
+            <Image
+              src={restaurant.imageUrl}
+              alt={restaurant.name}
+              className="rounded-lg object-cover"
+              fill
+            />
+          </Link>
 
           <StarBadge
             restaurant={restaurant}
             className="absolute left-2 top-2"
           />
 
-          <HeartButton className="absolute right-2 top-2" />
+          <HeartButton
+            userFavoritedRestaurants={userFavoritedRestaurants}
+            restaurant={restaurant}
+            key={restaurant.id}
+            userId={userId}
+            className="absolute right-2 top-2 z-50"
+          />
         </div>
 
         <div>
@@ -59,6 +71,6 @@ export default function RestaurantItem({
           </div>
         </div>
       </div>
-    </Link>
+    </div>
   );
 }

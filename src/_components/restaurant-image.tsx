@@ -2,15 +2,22 @@
 
 import Image from "next/image";
 import { Button } from "./ui/button";
-import { ChevronLeftIcon, HeartIcon } from "lucide-react";
-import { Restaurant } from "@prisma/client";
+import { ChevronLeftIcon } from "lucide-react";
+import { Restaurant, UserFavoritesRestaurants } from "@prisma/client";
 import { useRouter } from "next/navigation";
+import HeartButton from "./heart-button";
 
 interface RestaurantImageProps {
-  restaurant: Pick<Restaurant, "name" | "imageUrl">;
+  restaurant: Restaurant;
+  userFavoritedRestaurants: UserFavoritesRestaurants[];
+  userId?: string;
 }
 
-export default function RestaurantImage({ restaurant }: RestaurantImageProps) {
+export default function RestaurantImage({
+  restaurant,
+  userFavoritedRestaurants,
+  userId,
+}: RestaurantImageProps) {
   const router = useRouter();
 
   function handleBackClick() {
@@ -35,15 +42,12 @@ export default function RestaurantImage({ restaurant }: RestaurantImageProps) {
         <ChevronLeftIcon size={16} />
       </Button>
 
-      <Button
-        size={"icon"}
-        className="absolute right-4 top-4 rounded-full bg-muted-foreground px-1"
-      >
-        <HeartIcon
-          size={18}
-          className="h-fit w-fit transition-all hover:fill-white"
-        />
-      </Button>
+      <HeartButton
+        restaurant={restaurant}
+        userFavoritedRestaurants={userFavoritedRestaurants}
+        userId={userId}
+        className="absolute right-2 top-2 z-50 h-10 w-10"
+      />
     </div>
   );
 }

@@ -9,6 +9,8 @@ import { db } from "@/_lib/prisma";
 import Image from "next/image";
 import { notFound } from "next/navigation";
 import CartBanner from "./_components/cart-banner";
+import { getServerSession } from "next-auth";
+import { authOptions } from "@/_lib/auth";
 
 interface ProductPageProps {
   params: {
@@ -19,6 +21,8 @@ interface ProductPageProps {
 export default async function ProductPage({
   params: { id },
 }: ProductPageProps) {
+  const session = await getServerSession(authOptions);
+
   const restaurant = await db.restaurant.findUnique({
     where: {
       id,
@@ -48,13 +52,23 @@ export default async function ProductPage({
     },
   });
 
+  const userFavoritedRestaurants = await db.userFavoritesRestaurants.findMany({
+    where: {
+      userId: session?.user.id,
+    },
+  });
+
   if (!restaurant) {
     return notFound();
   }
 
   return (
     <div>
-      <RestaurantImage restaurant={restaurant} />
+      <RestaurantImage
+        restaurant={restaurant}
+        userFavoritedRestaurants={userFavoritedRestaurants}
+        userId={session?.user.id}
+      />
 
       <div className="relative z-50 -mt-5 rounded-t-lg bg-background px-5 pt-5">
         <div className="flex items-center justify-between">

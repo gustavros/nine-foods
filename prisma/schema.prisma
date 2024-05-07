@@ -7,6 +7,18 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
+model UserFavoritesRestaurants {
+  userId String
+  user   User   @relation(fields: [userId], references: [id])
+
+  restaurantId String
+  restaurant   Restaurant @relation(fields: [restaurantId], references: [id])
+
+  createdAt DateTime @default(now())
+
+  @@id([userId, restaurantId])
+}
+
 model Restaurant {
   id                  String  @id @default(uuid())
   name                String
@@ -15,9 +27,10 @@ model Restaurant {
   deliveryFee         Decimal @db.Decimal(10, 2)
   deliveryTimeMinutes Int
 
-  categories Category[]
-  products   Product[]
-  orders     Order[]
+  categories        Category[]
+  products          Product[]
+  orders            Order[]
+  usersWhoFavorited UserFavoritesRestaurants[]
 }
 
 model Category {
@@ -105,14 +118,15 @@ model Session {
 }
 
 model User {
-  id            String    @id @default(cuid())
-  name          String?
-  email         String?   @unique
-  emailVerified DateTime? @map("email_verified")
-  image         String?
-  accounts      Account[]
-  sessions      Session[]
-  orders        Order[]
+  id                  String                     @id @default(cuid())
+  name                String?
+  email               String?                    @unique
+  emailVerified       DateTime?                  @map("email_verified")
+  image               String?
+  accounts            Account[]
+  sessions            Session[]
+  orders              Order[]
+  favoriteRestaurants UserFavoritesRestaurants[]
 
   @@map("users")
 }
