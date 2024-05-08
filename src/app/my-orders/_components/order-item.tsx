@@ -47,8 +47,12 @@ export default function OrderItem({ order }: OrderItemProps) {
   function handleRedoOrderClick() {
     for (const orderProduct of order.orderProducts) {
       addProductToCart({
-        product: { ...orderProduct.product, restaurant: order.restaurant },
-        quantity: orderProduct.quantity,
+        product: {
+          ...orderProduct.product,
+          restaurant: order.restaurant,
+          quantity: orderProduct.quantity,
+        },
+        emptyCart: false,
       });
     }
 

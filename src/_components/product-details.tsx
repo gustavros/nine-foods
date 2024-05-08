@@ -6,7 +6,7 @@ import Image from "next/image";
 import DiscountBadge from "./discount-badge";
 import { ChevronLeftIcon, ChevronRightIcon } from "lucide-react";
 import { Button } from "./ui/button";
-import { useContext, useState } from "react";
+import { useCallback, useContext, useState } from "react";
 import ProductList from "./product-list";
 import DeliveryInfo from "./delivery-info";
 import { CartContext } from "@/_context/cart";
@@ -51,7 +51,7 @@ export default function ProductDetails({
   const router = useRouter();
 
   function addToCart({ emptyCart = false }: { emptyCart?: boolean }) {
-    addProductToCart({ product, quantity, emptyCart });
+    addProductToCart({ product: { ...product, quantity }, emptyCart });
 
     router.push(`/restaurants/${product.restaurant.id}`);
   }
@@ -70,17 +70,17 @@ export default function ProductDetails({
     });
   }
 
-  function handleIncreaseQuantity() {
+  const handleIncreaseQuantity = useCallback(() => {
     setQuantity((currentState) => currentState + 1);
-  }
+  }, []);
 
-  function handleDecreaseQuantity() {
-    if (quantity === 1) {
-      return 1;
+  const handleDecreaseQuantity = useCallback(() => {
+    if (quantity <= 1) {
+      return;
     }
 
     setQuantity((currentState) => currentState - 1);
-  }
+  }, [quantity]);
 
   return (
     <>

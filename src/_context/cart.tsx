@@ -26,25 +26,15 @@ interface ICartContext {
   totalPrice: number;
   totalDiscounts: number;
   totalQuantity: number;
-  addProductToCart({
+  addProductToCart: ({
     product,
-    quantity,
     emptyCart,
   }: {
-    product: Prisma.ProductGetPayload<{
-      include: {
-        restaurant: {
-          select: {
-            deliveryFee: true;
-          };
-        };
-      };
-    }>;
-    quantity: number;
+    product: CartProduct;
     emptyCart?: boolean;
-  }): void;
-  increaseProductQuantity: (productId: string) => void;
+  }) => void;
   decreaseProductQuantity: (productId: string) => void;
+  increaseProductQuantity: (productId: string) => void;
   removeProductFromCart: (productId: string) => void;
   clearCart: () => void;
 }
@@ -65,23 +55,23 @@ export const CartContext = createContext<ICartContext>({
 export const CartProvider = ({ children }: { children: ReactNode }) => {
   const [products, setProducts] = useState<CartProduct[]>([]);
 
-  function clearCart() {
+  const clearCart = () => {
     return setProducts([]);
-  }
+  };
 
-  const totalQuantity = useMemo(() => {
+  const totalQuantity: ICartContext["totalQuantity"] = useMemo(() => {
     return products.reduce((acc, product) => {
       return acc + product.quantity;
     }, 0);
   }, [products]);
 
-  const subtotalPrice = useMemo(() => {
+  const subtotalPrice: ICartContext["subtotalPrice"] = useMemo(() => {
     return products.reduce((acc, product) => {
       return acc + Number(product.price) * product.quantity;
     }, 0);
   }, [products]);
 
-  const totalPrice = useMemo(() => {
+  const totalPrice: ICartContext["totalPrice"] = useMemo(() => {
     return (
       products.reduce((acc, product) => {
         return acc + calculateProductTotalPrice(product) * product.quantity;
@@ -92,13 +82,17 @@ export const CartProvider = ({ children }: { children: ReactNode }) => {
   const totalDiscounts =
     subtotalPrice - totalPrice + Number(products?.[0]?.restaurant?.deliveryFee);
 
-  function removeProductFromCart(productId: string) {
+  const removeProductFromCart: ICartContext["removeProductFromCart"] = (
+    productId: string,
+  ) => {
     return setProducts((prev) =>
       prev.filter((cartProduct) => cartProduct.id !== productId),
     );
-  }
+  };
 
-  function increaseProductQuantity(productId: string) {
+  const increaseProductQuantity: ICartContext["increaseProductQuantity"] = (
+    productId: string,
+  ) => {
     return setProducts((prev) =>
       prev.map((cartProduct) => {
         if (cartProduct.id === productId) {
@@ -111,9 +105,11 @@ export const CartProvider = ({ children }: { children: ReactNode }) => {
         return cartProduct;
       }),
     );
-  }
+  };
 
-  function decreaseProductQuantity(productId: string) {
+  const decreaseProductQuantity: ICartContext["decreaseProductQuantity"] = (
+    productId,
+  ) => {
     return setProducts((prev) =>
       prev.map((cartProduct) => {
         if (cartProduct.id === productId) {
@@ -130,23 +126,12 @@ export const CartProvider = ({ children }: { children: ReactNode }) => {
         return cartProduct;
       }),
     );
-  }
+  };
 
-  function addProductToCart({
+  const addProductToCart: ICartContext["addProductToCart"] = ({
     product,
-    quantity,
     emptyCart,
-  }: {
-    product: Prisma.ProductGetPayload<{
-      include: {
-        restaurant: {
-          select: { deliveryFee: true; id: true; deliveryTimeMinutes: true };
-        };
-      };
-    }>;
-    quantity: number;
-    emptyCart?: boolean;
-  }) {
+  }) => {
     // if emptyCart is true, remove all products from the cart
     if (emptyCart) {
       setProducts([]);
@@ -164,7 +149,7 @@ export const CartProvider = ({ children }: { children: ReactNode }) => {
           if (cartProduct.id === product.id) {
             return {
               ...cartProduct,
-              quantity: cartProduct.quantity + quantity,
+              quantity: cartProduct.quantity + product.quantity,
             };
           }
 
@@ -174,8 +159,8 @@ export const CartProvider = ({ children }: { children: ReactNode }) => {
     }
 
     // if the product is not on the cart, add it
-    setProducts((prev) => [...prev, { ...product, quantity: quantity }]);
-  }
+    setProducts((prev) => [...prev, { ...product }]);
+  };
 
   return (
     <CartContext.Provider
