@@ -13,7 +13,6 @@ export default async function RestaurantList({}: RestaurantListProps) {
   const session = await getServerSession(authOptions);
 
   const restaurants = await db.restaurant.findMany({
-    take: 10,
     orderBy: {
       stars: "desc",
     },
@@ -32,7 +31,6 @@ export default async function RestaurantList({}: RestaurantListProps) {
           <RestaurantItem
             key={restaurant.id}
             restaurant={restaurant}
-            userId={session?.user.id}
             userFavoritedRestaurants={userFavoritedRestaurants}
           />
         ))}

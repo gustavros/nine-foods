@@ -10,14 +10,12 @@ import HeartButton from "./heart-button";
 interface RestaurantItemProps {
   restaurant: Restaurant;
   className?: string;
-  userId?: string;
   userFavoritedRestaurants: UserFavoritesRestaurants[];
 }
 
 export default function RestaurantItem({
   restaurant,
   className,
-  userId,
   userFavoritedRestaurants,
 }: RestaurantItemProps) {
   return (
@@ -42,7 +40,6 @@ export default function RestaurantItem({
             userFavoritedRestaurants={userFavoritedRestaurants}
             restaurant={restaurant}
             key={restaurant.id}
-            userId={userId}
             className="absolute right-2 top-2 z-50"
           />
         </div>
