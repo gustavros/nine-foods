@@ -1,9 +1,12 @@
-import { Prisma, UserFavoritesRestaurants } from "@prisma/client";
+import { Prisma } from "@prisma/client";
 import Image from "next/image";
 import Link from "next/link";
 import HeartButton from "@/_components/heart-button";
 import { formatCurrency } from "@/_helpers/price";
 import StarBadge from "@/_components/star-badge";
+import { getServerSession } from "next-auth";
+import { authOptions } from "@/_lib/auth";
+import { db } from "@/_lib/prisma";
 
 interface RecommendedRestaurantItemProps {
   restaurant: Prisma.RestaurantGetPayload<{
@@ -11,13 +14,19 @@ interface RecommendedRestaurantItemProps {
       categories: true;
     };
   }>;
-  userFavoritedRestaurants: UserFavoritesRestaurants[];
 }
 
-export default function RecommendedRestaurantItem({
+export default async function RecommendedRestaurantItem({
   restaurant,
-  userFavoritedRestaurants,
 }: RecommendedRestaurantItemProps) {
+  const session = await getServerSession(authOptions);
+
+  const userFavoritedRestaurants = await db.userFavoritesRestaurants.findMany({
+    where: {
+      userId: session?.user.id,
+    },
+  });
+
   return (
     <div
       key={restaurant.id}
