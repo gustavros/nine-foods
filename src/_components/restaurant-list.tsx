@@ -1,9 +1,13 @@
-import RestaurantItem from "./restaurant-item";
-
-import { Carousel, CarouselContent } from "@/_components/ui/carousel";
+import {
+  Carousel,
+  CarouselContent,
+  CarouselItem,
+} from "@/_components/ui/carousel";
 import { authOptions } from "@/_lib/auth";
 import { db } from "@/_lib/prisma";
+
 import { getServerSession } from "next-auth";
+import RestaurantItem from "./restaurant-item";
 
 interface RestaurantListProps {
   className?: string;
@@ -16,6 +20,9 @@ export default async function RestaurantList({}: RestaurantListProps) {
     orderBy: {
       stars: "desc",
     },
+    include: {
+      categories: true,
+    },
   });
 
   const userFavoritedRestaurants = await db.userFavoritesRestaurants.findMany({
@@ -26,13 +33,14 @@ export default async function RestaurantList({}: RestaurantListProps) {
 
   return (
     <Carousel>
-      <CarouselContent className="-ml-0 flex gap-4 pb-2">
+      <CarouselContent className="-ml-0 mb-6 gap-4">
         {restaurants.map((restaurant) => (
-          <RestaurantItem
-            key={restaurant.id}
-            restaurant={restaurant}
-            userFavoritedRestaurants={userFavoritedRestaurants}
-          />
+          <CarouselItem key={restaurant.id} className="basis-3/3 pl-0">
+            <RestaurantItem
+              restaurant={restaurant}
+              userFavoritedRestaurants={userFavoritedRestaurants}
+            />
+          </CarouselItem>
         ))}
       </CarouselContent>
     </Carousel>

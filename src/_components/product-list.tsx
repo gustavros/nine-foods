@@ -1,6 +1,10 @@
 import ProductItem from "./product-item";
 
-import { Carousel, CarouselContent } from "@/_components/ui/carousel";
+import {
+  Carousel,
+  CarouselContent,
+  CarouselItem,
+} from "@/_components/ui/carousel";
 import { Prisma } from "@prisma/client";
 
 interface ProductListProps {
@@ -14,9 +18,11 @@ interface ProductListProps {
 export default function ProductList({ products }: ProductListProps) {
   return (
     <Carousel>
-      <CarouselContent className="-ml-0 flex  gap-4 pb-2">
+      <CarouselContent className="-ml-0 mb-6 gap-4">
         {products.map((product) => (
-          <ProductItem key={product.id} product={product} />
+          <CarouselItem key={product.id} className="basis-3/3 pl-0">
+            <ProductItem product={product} />
+          </CarouselItem>
         ))}
       </CarouselContent>
     </Carousel>

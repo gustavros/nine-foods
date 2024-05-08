@@ -18,12 +18,9 @@ interface ProductItemProps {
 
 export default function ProductItem({ product, className }: ProductItemProps) {
   return (
-    <Link
-      href={`/products/${product.id}`}
-      className={cn("w-36 min-w-36", className)}
-    >
+    <Link href={`/products/${product.id}`} className={cn("w-36", className)}>
       <div className="space-y-2">
-        <div className="relative aspect-square w-full">
+        <div className="relative h-36 w-36">
           <Image
             fill
             src={product.imageUrl}

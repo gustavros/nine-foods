@@ -7,8 +7,15 @@ import Header from "@/_components/header";
 
 import RestaurantRecommendedItem from "@/app/restaurants/recommended/_components/recommended-restaurant-item";
 import RestaurantRecommendedSkeleton from "@/app/restaurants/recommended/_components/recommended-restaurant-skeleton";
+import { UserFavoritesRestaurants } from "@prisma/client";
 
-export default function Restaurants() {
+interface RestaurantsProps {
+  UserFavoritesRestaurants: UserFavoritesRestaurants[];
+}
+
+export default function Restaurants({
+  UserFavoritesRestaurants,
+}: RestaurantsProps) {
   const searchParams = useSearchParams();
   const [restaurants, setRestaurants] = useState<any[]>([]);
   const [loading, setLoading] = useState(false);
@@ -62,6 +69,7 @@ export default function Restaurants() {
               <RestaurantRecommendedItem
                 restaurant={restaurant}
                 key={restaurant.id}
+                userFavoritedRestaurants={UserFavoritesRestaurants}
               />
             ))
           )}

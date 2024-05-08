@@ -48,6 +48,7 @@ export default async function MyFavoriteRestaurants() {
               <RecommendedRestaurantItem
                 key={favorite.restaurant.id}
                 restaurant={favorite.restaurant}
+                userFavoritedRestaurants={userFavoritedRestaurants}
               />
             ))
           )}

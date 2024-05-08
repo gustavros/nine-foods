@@ -1,12 +1,10 @@
-import { Prisma } from "@prisma/client";
+import { Prisma, UserFavoritesRestaurants } from "@prisma/client";
 import Image from "next/image";
 import Link from "next/link";
-import HeartButton from "@/_components/heart-button";
 import { formatCurrency } from "@/_helpers/price";
 import StarBadge from "@/_components/star-badge";
-import { getServerSession } from "next-auth";
-import { authOptions } from "@/_lib/auth";
-import { db } from "@/_lib/prisma";
+import HeartButton from "@/_components/heart-button";
+import { cn } from "@/_lib/utils";
 
 interface RecommendedRestaurantItemProps {
   restaurant: Prisma.RestaurantGetPayload<{
@@ -14,23 +12,22 @@ interface RecommendedRestaurantItemProps {
       categories: true;
     };
   }>;
+  userFavoritedRestaurants: UserFavoritesRestaurants[];
+  className?: string;
 }
 
-export default async function RecommendedRestaurantItem({
+export default function RecommendedRestaurantItem({
   restaurant,
+  userFavoritedRestaurants,
+  className,
 }: RecommendedRestaurantItemProps) {
-  const session = await getServerSession(authOptions);
-
-  const userFavoritedRestaurants = await db.userFavoritesRestaurants.findMany({
-    where: {
-      userId: session?.user.id,
-    },
-  });
-
   return (
     <div
       key={restaurant.id}
-      className="relative flex gap-6 rounded-lg border border-muted px-4 py-4"
+      className={cn(
+        "relative flex w-full gap-6 rounded-lg border border-muted px-4 py-4",
+        className,
+      )}
     >
       <Link href={`/restaurants/${restaurant.id}`}>
         <div className="relative h-24 w-24">
@@ -45,12 +42,12 @@ export default async function RecommendedRestaurantItem({
 
       <HeartButton
         restaurant={restaurant}
-        userFavoritedRestaurants={userFavoritedRestaurants}
         className="absolute left-2 top-2"
+        userFavoritedRestaurants={userFavoritedRestaurants}
       />
 
       <Link href={`/restaurants/${restaurant.id}`}>
-        <h3 className="text-base font-semibold">{restaurant.name}</h3>
+        <h3 className="truncate text-base font-semibold">{restaurant.name}</h3>
 
         <div className="flex items-center gap-1">
           <div className="flex items-center gap-1.5">
@@ -70,19 +67,17 @@ export default async function RecommendedRestaurantItem({
           </div>
         </div>
 
-        {restaurant.categories
-          .map((category) => (
-            <span className="block text-sm" key={category.id}>
-              {category.name}
-            </span>
-          ))
-          .at(2)}
+        <div className="flex items-center gap-1">
+          <StarBadge className="px-0" restaurant={restaurant} />-
+          {restaurant.categories
+            .map((category) => (
+              <span className="block text-sm" key={category.id}>
+                {category.name}
+              </span>
+            ))
+            .at(2)}
+        </div>
       </Link>
-
-      <StarBadge
-        restaurant={restaurant}
-        className="absolute right-4 top-4 bg-transparent p-0 text-xs"
-      />
     </div>
   );
 }

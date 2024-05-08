@@ -46,18 +46,11 @@ export default async function CategoriesPage({
         <h2 className="mb-6 text-lg font-semibold">{category.name}</h2>
 
         <div>
-          <div className="grid grid-cols-2 gap-6">
-            {category.products
-              .map((product) => (
-                <ProductItem
-                  key={product.id}
-                  product={product}
-                  className="min-w-full"
-                />
-              ))
-              .slice(0, 6)}
+          <div className="flex flex-wrap justify-center gap-6">
+            {category.products.map((product) => (
+              <ProductItem key={product.id} product={product} />
+            ))}
           </div>
-
           <Pagination className="w-full py-4">
             <PaginationContent>
               <PaginationItem>

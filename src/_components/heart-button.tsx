@@ -27,7 +27,7 @@ export default function HeartButton({
 
   const router = useRouter();
 
-  const isFavorite = userFavoritedRestaurants.some(
+  const isFavorite = userFavoritedRestaurants?.some(
     (favorite) => favorite.restaurantId === restaurant.id,
   );
 

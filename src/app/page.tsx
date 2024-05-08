@@ -102,7 +102,7 @@ export default async function Home() {
 
       <hr className="mx-5 my-2" />
 
-      <div className="px-5">
+      <div className="w-full px-5">
         <div className="flex items-center justify-between pb-4 pt-6">
           <h2 className="font-semibold">Restaurantes recomendados</h2>
 
