@@ -9,17 +9,18 @@
 # Versão mobile 📱
 
 ![Mobile](https://i.imgur.com/tD4vBn7.png)
+![Mobile-02](https://i.imgur.com/Scideat.png)
+![Mobile-03](https://i.imgur.com/4Pk1dLr.gif)
 
 ### ⚙ Ajustes e melhorias
 
 O projeto ainda está em desenvolvimento e penso em atualizar com as seguintes melhorias:
 
-- [x] Funcionalidade de internacionalização
-- [x] Ajustar o código para o funcionamento do site em dispositivos desktops
-- [x] Paginação com shadcn ui
 - [x] Light e dark mode
+- [ ] Funcionalidade de internacionalização para suporte de multi-idiomas.
+- [ ] Ajustar o código para o funcionamento do site em dispositivos desktops
+- [ ] Paginação com shadcn ui
 - [ ] Criação de um dashboard para visualização de restaurantes, pedidos e produtos
-- [ ] ..?
 
 ## 💻 Techs e libs usadas
 
