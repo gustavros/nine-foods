@@ -30,7 +30,6 @@ import { ModeToggle } from "./theme-provider/mode-toggle";
 export default function MenuMobile() {
   const { data } = useSession();
 
-  // CRIAR FUNÇÃO PARA FAZER LOGIN SE O USUARIO NÃO ESTIVER LOGADO
   function handleWithLoginIfUserNotLogged() {
     if (!data?.user) {
       return signIn("google");

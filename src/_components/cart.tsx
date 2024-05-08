@@ -68,7 +68,7 @@ export default function Cart() {
         },
       });
     } catch (error) {
-      console.log(error);
+      toast.error("Ocorreu um erro ao finalizar o pedido.");
     } finally {
       setIsSubmitLoading(false);
     }

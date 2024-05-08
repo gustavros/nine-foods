@@ -28,8 +28,6 @@ export default function CartItem({ cartProduct }: CartItemProps) {
     removeProductFromCart(cartProduct.id);
   }
 
-  console.log("esse componente foi renderizado");
-
   return (
     <div className="flex flex-col items-center justify-between">
       {/* TODO: ADICIONAR INFORMAÇOES DO RESTAURANTE */}
