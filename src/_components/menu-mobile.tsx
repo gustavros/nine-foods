@@ -25,6 +25,8 @@ import {
 import { Avatar, AvatarFallback, AvatarImage } from "./ui/avatar";
 import Link from "next/link";
 
+import { ModeToggle } from "./theme-provider/mode-toggle";
+
 export default function MenuMobile() {
   const { data } = useSession();
 
@@ -168,6 +170,10 @@ export default function MenuMobile() {
             <p className="text-sm">Sucos</p>
           </Button>
         </div>
+
+        <hr className="my-6" />
+
+        <ModeToggle />
 
         <hr className="my-6" />
 
