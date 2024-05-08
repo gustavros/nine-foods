@@ -34,7 +34,7 @@ export default async function MyOrdersPage() {
       <Header />
 
       <div className="flex flex-col gap-6 px-5 py-6">
-        <h2 className="font-semibold">Meus pedidos</h2>
+        <h2 className="text-lg font-semibold">Meus pedidos</h2>
 
         <div className="space-y-3">
           {orders.length === 0 ? (

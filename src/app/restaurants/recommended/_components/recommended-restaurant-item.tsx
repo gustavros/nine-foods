@@ -1,4 +1,4 @@
-import { Prisma } from "@prisma/client";
+import { Prisma, UserFavoritesRestaurants } from "@prisma/client";
 import Image from "next/image";
 import Link from "next/link";
 import HeartButton from "@/_components/heart-button";
@@ -11,29 +11,36 @@ interface RecommendedRestaurantItemProps {
       categories: true;
     };
   }>;
+  userFavoritedRestaurants: UserFavoritesRestaurants[];
 }
 
 export default function RecommendedRestaurantItem({
   restaurant,
+  userFavoritedRestaurants,
 }: RecommendedRestaurantItemProps) {
   return (
-    <Link
-      href={`/restaurants/${restaurant.id}`}
+    <div
       key={restaurant.id}
       className="relative flex gap-6 rounded-lg border border-muted px-4 py-4"
     >
-      <div className="relative h-24 w-24  ">
-        <Image
-          src={restaurant.imageUrl}
-          alt={restaurant.name}
-          className="rounded-lg object-cover"
-          fill
-        />
+      <Link href={`/restaurants/${restaurant.id}`}>
+        <div className="relative h-24 w-24">
+          <Image
+            src={restaurant.imageUrl}
+            alt={restaurant.name}
+            className="rounded-lg object-cover"
+            fill
+          />
+        </div>
+      </Link>
 
-        <HeartButton />
-      </div>
+      <HeartButton
+        restaurant={restaurant}
+        userFavoritedRestaurants={userFavoritedRestaurants}
+        className="absolute left-2 top-2"
+      />
 
-      <div>
+      <Link href={`/restaurants/${restaurant.id}`}>
         <h3 className="text-base font-semibold">{restaurant.name}</h3>
 
         <div className="flex items-center gap-1">
@@ -61,12 +68,12 @@ export default function RecommendedRestaurantItem({
             </span>
           ))
           .at(2)}
-      </div>
+      </Link>
 
       <StarBadge
         restaurant={restaurant}
         className="absolute right-4 top-4 bg-transparent p-0 text-xs"
       />
-    </Link>
+    </div>
   );
 }

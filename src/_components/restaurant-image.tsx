@@ -10,13 +10,11 @@ import HeartButton from "./heart-button";
 interface RestaurantImageProps {
   restaurant: Restaurant;
   userFavoritedRestaurants: UserFavoritesRestaurants[];
-  userId?: string;
 }
 
 export default function RestaurantImage({
   restaurant,
   userFavoritedRestaurants,
-  userId,
 }: RestaurantImageProps) {
   const router = useRouter();
 
@@ -45,7 +43,6 @@ export default function RestaurantImage({
       <HeartButton
         restaurant={restaurant}
         userFavoritedRestaurants={userFavoritedRestaurants}
-        userId={userId}
         className="absolute right-2 top-2 z-50 h-10 w-10"
       />
     </div>

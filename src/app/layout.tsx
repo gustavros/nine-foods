@@ -25,7 +25,7 @@ export default function RootLayout({
         <AuthProvider>
           <ThemeProvider attribute="class" defaultTheme="system" enableSystem>
             <CartProvider>{children}</CartProvider>
-            <Toaster expand={false} />
+            <Toaster />
           </ThemeProvider>
         </AuthProvider>
       </body>

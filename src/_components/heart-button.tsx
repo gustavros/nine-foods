@@ -9,38 +9,56 @@ import {
   unfavoriteRestaurant,
 } from "@/_actions/favorite-restaurant";
 import { toast } from "sonner";
+import { useSession } from "next-auth/react";
+import { useRouter } from "next/navigation";
 
 interface HeartButtonProps {
   className?: string;
   restaurant: Restaurant;
-  userId: string | undefined;
   userFavoritedRestaurants: UserFavoritesRestaurants[];
 }
 
 export default function HeartButton({
   className,
   restaurant,
-  userId,
   userFavoritedRestaurants,
 }: HeartButtonProps) {
+  const { data } = useSession();
+
+  const router = useRouter();
+
   const isFavorite = userFavoritedRestaurants.some(
     (favorite) => favorite.restaurantId === restaurant.id,
   );
 
   async function handleFavoriteClick() {
-    if (!userId) return;
+    if (!data?.user.id) return;
 
     try {
       if (isFavorite) {
-        await unfavoriteRestaurant(userId, restaurant.id);
-        return toast.success("Restaurante desfavoritado com sucesso!");
+        await unfavoriteRestaurant(data.user.id, restaurant.id);
+        return toast.success("Restaurante desfavoritado com sucesso!", {
+          position: "top-center",
+        });
       }
 
-      await favoriteRestaurant(userId, restaurant.id);
+      await favoriteRestaurant(data.user.id, restaurant.id);
 
-      toast.success("Restaurante favoritado com sucesso!");
+      toast.success("Restaurante favoritado com sucesso!", {
+        position: "top-center",
+        action: {
+          label: "Ver favoritos",
+          onClick: () => router.push("/my-favorite-restaurants"),
+        },
+      });
     } catch (error) {
-      toast.error("Ocorreu um erro ao favoritar o restaurante.");
+      toast.error("Ocorreu um erro ao favoritar o restaurante.", {
+        position: "top-center",
+        action: {
+          label: "Ver detalhes",
+          onClick: () => console.log(error),
+        },
+      });
     }
   }
 

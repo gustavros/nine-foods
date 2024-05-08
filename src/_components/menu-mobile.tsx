@@ -98,13 +98,16 @@ export default function MenuMobile() {
           </Button>
 
           <Button
+            asChild
             variant={"ghost"}
             className="flex w-full items-center justify-start gap-3"
             onClick={handleWithLoginIfUserNotLogged}
           >
-            <HeartIcon size={16} />
+            <Link href={"/my-favorite-restaurants"}>
+              <HeartIcon size={16} />
 
-            <p className="text-sm">Restaurantes favoritos</p>
+              <p className="text-sm">Restaurantes favoritos</p>
+            </Link>
           </Button>
         </div>
 

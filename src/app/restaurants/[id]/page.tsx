@@ -67,7 +67,6 @@ export default async function ProductPage({
       <RestaurantImage
         restaurant={restaurant}
         userFavoritedRestaurants={userFavoritedRestaurants}
-        userId={session?.user.id}
       />
 
       <div className="relative z-50 -mt-5 rounded-t-lg bg-background px-5 pt-5">
