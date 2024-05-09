@@ -11,6 +11,7 @@ import {
   IceCreamIcon,
   GrapeIcon,
   LogOutIcon,
+  LayoutDashboardIcon,
 } from "lucide-react";
 import { signIn, signOut, useSession } from "next-auth/react";
 import { Button } from "./ui/button";
@@ -29,6 +30,8 @@ import { ModeToggle } from "./theme-provider/mode-toggle";
 
 export default function MenuMobile() {
   const { data } = useSession();
+
+  const isAdmin = data?.user.email === "gustavossw1@gmail.com" ? true : false;
 
   function handleWithLoginIfUserNotLogged() {
     if (!data?.user) {
@@ -56,12 +59,14 @@ export default function MenuMobile() {
                   <AvatarImage src={data.user.image} alt={data.user.name} />
                 )}
                 <AvatarFallback>
-                  {data.user.name[0].toUpperCase()}
+                  {data.user.name[0].toUpperCase()} -{" "}
                 </AvatarFallback>
               </Avatar>
 
               <div>
-                <h3 className="font-semibold">{data.user.name}</h3>
+                <h3 className="font-semibold">
+                  {data.user.name} - {isAdmin ? "Administrador" : "Usuário"}
+                </h3>
                 <p className="text-muted-foreground ">{data.user.email}</p>
               </div>
             </div>
@@ -110,6 +115,20 @@ export default function MenuMobile() {
               <p className="text-sm">Restaurantes favoritos</p>
             </Link>
           </Button>
+
+          {isAdmin && (
+            <Button
+              asChild
+              variant={"ghost"}
+              className="flex w-full items-center justify-start gap-3"
+            >
+              <Link href={"/dashboard"}>
+                <LayoutDashboardIcon size={16} />
+
+                <p className="text-sm">Dashboard</p>
+              </Link>
+            </Button>
+          )}
         </div>
 
         <hr className="my-6" />
