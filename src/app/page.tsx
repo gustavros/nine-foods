@@ -9,25 +9,33 @@ import { ChevronRight } from "lucide-react";
 import Link from "next/link";
 
 export default async function Home() {
-  const pizzaCategoryId = "ea74af8a-76e7-44a5-a4a0-1081fd3d8b13";
-  const burguerCategoryId = "e96b9bc2-643d-434f-abb6-ed4c10e1c6bc";
-
-  const fetchDiscountedProducts = async (categoryId: string) => {
-    return await db.product.findMany({
-      where: {
-        discountPercentage: {
-          gt: 0,
-        },
-        categoryId: categoryId,
+  const pizzas = await db.product.findMany({
+    where: {
+      discountPercentage: {
+        gt: 0,
       },
-      include: {
-        restaurant: true,
+      category: {
+        name: "Pizzas",
       },
-    });
-  };
+    },
+    include: {
+      restaurant: true,
+    },
+  });
 
-  const pizzas = await fetchDiscountedProducts(pizzaCategoryId);
-  const burguers = await fetchDiscountedProducts(burguerCategoryId);
+  const burguers = await db.product.findMany({
+    where: {
+      discountPercentage: {
+        gt: 0,
+      },
+      category: {
+        name: "Hambúrgueres",
+      },
+    },
+    include: {
+      restaurant: true,
+    },
+  });
 
   return (
     <>
@@ -38,7 +46,7 @@ export default async function Home() {
       </div>
 
       <div className="px-5 pt-6">
-        <Link href={`/categories/${pizzaCategoryId}/products`}>
+        <Link href={`/categories/${pizzas[0].categoryId}/products`}>
           <PromoBanner
             src={"/promo-banner-01.png"}
             alt="Até 30% de desconto em pizzas."
@@ -55,7 +63,7 @@ export default async function Home() {
             variant={"link"}
             className="flex items-center px-0 text-primary"
           >
-            <Link href={`/categories/${pizzaCategoryId}/products`}>
+            <Link href={`/categories/${pizzas[0].categoryId}/products`}>
               Ver todas
               <ChevronRight size={16} />
             </Link>
@@ -66,7 +74,7 @@ export default async function Home() {
       </div>
 
       <div className="px-5 pt-6">
-        <Link href={`/categories/${burguerCategoryId}/products`}>
+        <Link href={`/categories/${burguers[0].categoryId}/products`}>
           <PromoBanner
             src={"/promo-banner-02.png"}
             alt="A partir de R$ 17,90 em lanches."
@@ -83,7 +91,7 @@ export default async function Home() {
             variant={"link"}
             className="flex items-center px-0 text-primary"
           >
-            <Link href={`/categories/${burguerCategoryId}/products`}>
+            <Link href={`/categories/${burguers[0].categoryId}/products`}>
               Ver todos
               <ChevronRight size={16} />
             </Link>

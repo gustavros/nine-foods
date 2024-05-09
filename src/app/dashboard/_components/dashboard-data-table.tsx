@@ -88,42 +88,41 @@ export const columns: ColumnDef<Product>[] = [
   },
   {
     accessorKey: "name",
-    header: ({ column }) => {
-      return (
-        <Button
-          variant="ghost"
-          onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
-        >
-          Nome
-          <ArrowUpDown className="ml-2 h-4 w-4" />
-        </Button>
-      );
-    },
+    header: ({ column }) => (
+      <Button
+        variant="ghost"
+        onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
+      >
+        Nome
+        <ArrowUpDown className="ml-2 h-4 w-4" />
+      </Button>
+    ),
     cell: ({ row }) => <div>{row.getValue("name")}</div>,
   },
   {
     accessorKey: "discountPercentage",
-
     header: () => <div className="text-right">Porcentagem de desconto</div>,
-    cell: ({ row }) => {
-      return (
-        <div className="text-center">
-          {row.getValue("discountPercentage")} %
-        </div>
-      );
-    },
+    cell: ({ row }) => (
+      <div className="text-center">{row.getValue("discountPercentage")}%</div>
+    ),
   },
   {
     accessorKey: "price",
-    header: () => <div className="text-right">Preço</div>,
+    header: ({ column }) => (
+      <Button
+        variant="ghost"
+        onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
+      >
+        Preço
+        <ArrowUpDown className="ml-2 h-4 w-4" />
+      </Button>
+    ),
     cell: ({ row }) => {
       const amount = parseFloat(row.getValue("price"));
-
       const formatted = new Intl.NumberFormat("pt-BR", {
         style: "currency",
         currency: "BRL",
       }).format(amount);
-
       return <div className="text-right font-medium">{formatted}</div>;
     },
   },
@@ -133,7 +132,6 @@ export const columns: ColumnDef<Product>[] = [
     cell: ({ row }) => {
       const productId = row.getValue("id") as string;
       const { restaurantId } = row.original;
-
       return (
         <DropdownMenu>
           <DropdownMenuTrigger asChild>
@@ -146,17 +144,15 @@ export const columns: ColumnDef<Product>[] = [
             <DropdownMenuLabel>Ações</DropdownMenuLabel>
             <DropdownMenuSeparator />
             <DropdownMenuItem
-              onClick={() => {
-                navigator.clipboard.writeText(productId);
-              }}
+              onClick={() => navigator.clipboard.writeText(productId)}
             >
               Cópiar ID do produto
             </DropdownMenuItem>
             <DropdownMenuItem
               className="cursor-pointer"
-              onClick={() => {
-                window.location.href = `/restaurants/${restaurantId}`;
-              }}
+              onClick={() =>
+                (window.location.href = `/restaurants/${restaurantId}`)
+              }
             >
               Ver restaurante
             </DropdownMenuItem>
@@ -183,11 +179,9 @@ export function DashboardDataTable({ restaurants }: DashboardDataTableProps) {
     async function fetchProducts() {
       const foundProducts =
         await getProductsByRestaurantId(selectedRestaurantId);
-
       setProducts(foundProducts);
       setLoading(false);
     }
-
     fetchProducts();
   }, [selectedRestaurantId]);
 
@@ -222,7 +216,6 @@ export function DashboardDataTable({ restaurants }: DashboardDataTableProps) {
         <SelectContent>
           <SelectGroup>
             <SelectLabel>Restaurantes</SelectLabel>
-
             {loading ? (
               <div className="flex items-center justify-center">
                 <Loader2 className="mr-2 h-4 w-4 animate-spin" />
@@ -260,19 +253,17 @@ export function DashboardDataTable({ restaurants }: DashboardDataTableProps) {
               {table
                 .getAllColumns()
                 .filter((column) => column.getCanHide())
-                .map((column) => {
-                  return (
-                    <DropdownMenuCheckboxItem
-                      key={column.id}
-                      checked={column.getIsVisible()}
-                      onCheckedChange={(value) =>
-                        column.toggleVisibility(!!value)
-                      }
-                    >
-                      {column.id}
-                    </DropdownMenuCheckboxItem>
-                  );
-                })}
+                .map((column) => (
+                  <DropdownMenuCheckboxItem
+                    key={column.id}
+                    checked={column.getIsVisible()}
+                    onCheckedChange={(value) =>
+                      column.toggleVisibility(!!value)
+                    }
+                  >
+                    {column.id}
+                  </DropdownMenuCheckboxItem>
+                ))}
             </DropdownMenuContent>
           </DropdownMenu>
         </div>
@@ -282,18 +273,16 @@ export function DashboardDataTable({ restaurants }: DashboardDataTableProps) {
             <TableHeader>
               {table.getHeaderGroups().map((headerGroup) => (
                 <TableRow key={headerGroup.id}>
-                  {headerGroup.headers.map((header) => {
-                    return (
-                      <TableHead key={header.id}>
-                        {header.isPlaceholder
-                          ? null
-                          : flexRender(
-                              header.column.columnDef.header,
-                              header.getContext(),
-                            )}
-                      </TableHead>
-                    );
-                  })}
+                  {headerGroup.headers.map((header) => (
+                    <TableHead key={header.id}>
+                      {header.isPlaceholder
+                        ? null
+                        : flexRender(
+                            header.column.columnDef.header,
+                            header.getContext(),
+                          )}
+                    </TableHead>
+                  ))}
                 </TableRow>
               ))}
             </TableHeader>
