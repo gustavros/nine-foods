@@ -12,29 +12,22 @@ export default async function Home() {
   const pizzaCategoryId = "ea74af8a-76e7-44a5-a4a0-1081fd3d8b13";
   const burguerCategoryId = "e96b9bc2-643d-434f-abb6-ed4c10e1c6bc";
 
-  const pizzas = await db.product.findMany({
-    where: {
-      discountPercentage: {
-        gt: 0,
+  const fetchDiscountedProducts = async (categoryId: string) => {
+    return await db.product.findMany({
+      where: {
+        discountPercentage: {
+          gt: 0,
+        },
+        categoryId: categoryId,
       },
-      categoryId: pizzaCategoryId,
-    },
-    include: {
-      restaurant: true,
-    },
-  });
+      include: {
+        restaurant: true,
+      },
+    });
+  };
 
-  const burguers = await db.product.findMany({
-    where: {
-      discountPercentage: {
-        gt: 0,
-      },
-      categoryId: burguerCategoryId,
-    },
-    include: {
-      restaurant: true,
-    },
-  });
+  const pizzas = await fetchDiscountedProducts(pizzaCategoryId);
+  const burguers = await fetchDiscountedProducts(burguerCategoryId);
 
   return (
     <>
