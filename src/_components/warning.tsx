@@ -15,26 +15,20 @@ import { AlertDialogHeader, AlertDialogFooter } from "./ui/alert-dialog";
 export function Warning() {
   const [open, setOpen] = useState(true);
 
-  if (typeof localStorage !== "undefined") {
-    localStorage.setItem("warning", "true");
-  } else if (typeof sessionStorage !== "undefined") {
-    sessionStorage.setItem("warning", "true");
-  } else {
-    console.log("Web Storage is not supported in this environment.");
-  }
-
-  if (localStorage.getItem("warning") === "true") {
+  if (document.cookie.includes("next-warning=false")) {
     return null;
   }
 
-  function handleLocalStorage() {
-    localStorage.setItem("warning", "true");
+  function handleSaveOnCookies() {
+    document.cookie = `next-warning=false; path=/;`;
+
+    setOpen(false);
   }
 
   function handleClose() {
     setOpen(false);
 
-    handleLocalStorage();
+    handleSaveOnCookies();
   }
 
   return (
