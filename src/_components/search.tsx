@@ -21,14 +21,14 @@ export default function Search() {
       return;
     }
 
-    router.push(`/restaurants?search=${search}`);
+    router.push(`/products?search=${search}`);
   }
 
   return (
     <form className="flex" onSubmit={handleSearchSubmit}>
       <Input
         type="text"
-        placeholder="Buscar restaurantes..."
+        placeholder="Buscar produtos..."
         className="rounded-r-none border-r-0 focus:ring-0 focus-visible:ring-0 focus-visible:ring-offset-0"
         onChange={handleChange}
         value={search}

@@ -41,7 +41,7 @@ export default async function MyOrdersPage() {
             <div className="flex flex-col  gap-2">
               <p className="text-sm text-muted-foreground">
                 Nenhum pedido encontrado. Faça seu pedido clicando{" "}
-                <a className=" underline " href="restaurants/recommended">
+                <a className=" underline " href="/">
                   aqui
                 </a>
               </p>

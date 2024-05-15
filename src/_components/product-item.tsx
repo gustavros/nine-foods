@@ -1,18 +1,14 @@
 "use client";
 
 import { calculateProductTotalPrice, formatCurrency } from "@/_helpers/price";
-import { Prisma } from "@prisma/client";
 import Image from "next/image";
 import Link from "next/link";
 import DiscountBadge from "./discount-badge";
 import { cn } from "@/_lib/utils";
+import { Product } from "@prisma/client";
 
 interface ProductItemProps {
-  product: Prisma.ProductGetPayload<{
-    include: {
-      restaurant: true;
-    };
-  }>;
+  product: Product;
   className?: string;
 }
 
@@ -50,10 +46,6 @@ export default function ProductItem({ product, className }: ProductItemProps) {
               </span>
             )}
           </div>
-
-          <span className="block text-sm text-muted-foreground transition-colors">
-            {product.restaurant.name}
-          </span>
         </div>
       </div>
     </Link>

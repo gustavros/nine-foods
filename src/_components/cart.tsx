@@ -11,7 +11,13 @@ import { useRouter } from "next/navigation";
 import { toast } from "sonner";
 import { signIn, useSession } from "next-auth/react";
 
-export default function Cart() {
+interface CartProps {
+  isCartOpen: boolean;
+  // eslint-disable-next-line no-unused-vars
+  setIsCartOpen: (value: boolean) => void;
+}
+
+export default function Cart({ setIsCartOpen }: CartProps) {
   const router = useRouter();
 
   const [isSubmitLoading, setIsSubmitLoading] = useState(false);
@@ -30,6 +36,7 @@ export default function Cart() {
 
     try {
       setIsSubmitLoading(true);
+
       await createOrder({
         subtotalPrice,
         totalDiscounts,
@@ -58,6 +65,8 @@ export default function Cart() {
       });
 
       clearCart();
+
+      setIsCartOpen(false);
 
       toast("Pedido finalizado com sucesso!", {
         description:

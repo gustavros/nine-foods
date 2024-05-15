@@ -5,14 +5,10 @@ import {
   CarouselContent,
   CarouselItem,
 } from "@/_components/ui/carousel";
-import { Prisma } from "@prisma/client";
+import { Product } from "@prisma/client";
 
 interface ProductListProps {
-  products: Prisma.ProductGetPayload<{
-    include: {
-      restaurant: true;
-    };
-  }>[];
+  products: Product[];
 }
 
 export default function ProductList({ products }: ProductListProps) {

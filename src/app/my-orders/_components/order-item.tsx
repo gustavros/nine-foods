@@ -1,6 +1,5 @@
 "use client";
 
-import { Avatar, AvatarImage } from "@/_components/ui/avatar";
 import { Button } from "@/_components/ui/button";
 import { Card, CardContent } from "@/_components/ui/card";
 import { CartContext } from "@/_context/cart";
@@ -8,7 +7,6 @@ import { formatCurrency } from "@/_helpers/price";
 import { OrderStatus, Prisma } from "@prisma/client";
 import { ChevronRightIcon } from "lucide-react";
 import Link from "next/link";
-import { useRouter } from "next/navigation";
 import { useContext } from "react";
 
 interface OrderItemProps {
@@ -42,8 +40,6 @@ const getOrderStatusLabel = (status: OrderStatus) => {
 export default function OrderItem({ order }: OrderItemProps) {
   const { addProductToCart } = useContext(CartContext);
 
-  const router = useRouter();
-
   function handleRedoOrderClick() {
     for (const orderProduct of order.orderProducts) {
       addProductToCart({
@@ -55,8 +51,6 @@ export default function OrderItem({ order }: OrderItemProps) {
         emptyCart: false,
       });
     }
-
-    router.push(`/restaurants/${order.restaurantId}`);
   }
 
   return (
@@ -71,19 +65,6 @@ export default function OrderItem({ order }: OrderItemProps) {
         </div>
         <div className="flex items-center justify-between pt-3">
           <div className="flex flex-col gap-3">
-            <div className="flex items-center gap-2">
-              <Avatar className="h-6 w-6">
-                <AvatarImage
-                  src={order.restaurant.imageUrl}
-                  className={`${order.status === "FINISHED" && "grayscale filter"}`}
-                />
-              </Avatar>
-
-              <span className="text-sm font-semibold">
-                {order.restaurant.name}
-              </span>
-            </div>
-
             <p className="text-sm ">
               Data do pedido{" "}
               {new Date(order.createdAt).toLocaleDateString("pt-BR", {
@@ -100,7 +81,7 @@ export default function OrderItem({ order }: OrderItemProps) {
           </div>
 
           <Button variant="link" size="icon" className="h-5 w-5 " asChild>
-            <Link href={`/restaurants/${order.restaurantId}`}>
+            <Link href={`/`}>
               <ChevronRightIcon />
             </Link>
           </Button>

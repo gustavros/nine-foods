@@ -2,7 +2,6 @@
 
 import { formatCurrency, calculateProductTotalPrice } from "@/_helpers/price";
 import { Prisma } from "@prisma/client";
-import Image from "next/image";
 import DiscountBadge from "./discount-badge";
 import { ChevronLeftIcon, ChevronRightIcon } from "lucide-react";
 import { Button } from "./ui/button";
@@ -22,7 +21,6 @@ import {
   AlertDialogHeader,
   AlertDialogTitle,
 } from "./ui/alert-dialog";
-import { useRouter } from "next/navigation";
 
 interface ProductDetailsProps {
   product: Prisma.ProductGetPayload<{
@@ -48,12 +46,10 @@ export default function ProductDetails({
 
   const { addProductToCart, products } = useContext(CartContext);
 
-  const router = useRouter();
-
   function addToCart({ emptyCart = false }: { emptyCart?: boolean }) {
     addProductToCart({ product: { ...product, quantity }, emptyCart });
 
-    router.push(`/restaurants/${product.restaurant.id}`);
+    setIsCartOpen(true);
   }
 
   function handleAddToCartClick() {
@@ -85,47 +81,30 @@ export default function ProductDetails({
   return (
     <>
       <div className="relative z-50 -mt-5 rounded-t-lg bg-background p-5">
-        {/* NOME DO RESTAURANTE */}
-        <div className="flex items-center gap-1.5">
-          <div className="relative h-6 w-6">
-            <Image
-              src={product.restaurant.imageUrl}
-              alt={product.name}
-              fill
-              className="rounded-full object-cover"
-            />
-          </div>
-
-          <span className="text-xs text-muted-foreground">
-            {product.restaurant.name}
-          </span>
-        </div>
-
         {/* NOME DO PRODUTO */}
-
-        <h1 className="mb-3 mt-1 text-xl font-semibold ">{product.name}</h1>
 
         {/* PREÇO DO PRODUTO E QUANTIDADE */}
         <div className="flex items-center justify-between">
-          {/* PREÇO COM DESCONTO */}
-          <div>
-            <div className="flex items-center gap-1">
-              <h2 className="text-xl font-semibold">
-                {formatCurrency(calculateProductTotalPrice(product))}
-              </h2>
+          <div className="flex flex-col">
+            <h1 className="mb-3 mt-1 text-xl font-semibold ">{product.name}</h1>
+            {/* PREÇO COM DESCONTO */}
+            <div>
+              <div className="flex items-center gap-1">
+                <h2 className="text-xl font-semibold">
+                  {formatCurrency(calculateProductTotalPrice(product))}
+                </h2>
+                {product.discountPercentage > 0 && (
+                  <DiscountBadge product={product} />
+                )}
+              </div>
+              {/* PREÇO ORIGINAL */}
               {product.discountPercentage > 0 && (
-                <DiscountBadge product={product} />
+                <p className="text-sm text-muted-foreground">
+                  De: {formatCurrency(Number(product.price))}
+                </p>
               )}
             </div>
-
-            {/* PREÇO ORIGINAL */}
-            {product.discountPercentage > 0 && (
-              <p className="text-sm text-muted-foreground">
-                De: {formatCurrency(Number(product.price))}
-              </p>
-            )}
           </div>
-
           <div className="flex items-center gap-2">
             <Button
               size="icon"
@@ -176,7 +155,7 @@ export default function ProductDetails({
             <h2 className="text-left text-lg font-semibold">Sacola</h2>
           </SheetHeader>
 
-          <Cart />
+          <Cart isCartOpen={isCartOpen} setIsCartOpen={setIsCartOpen} />
         </SheetContent>
       </Sheet>
 

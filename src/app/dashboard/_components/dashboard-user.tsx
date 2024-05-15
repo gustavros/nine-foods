@@ -20,7 +20,7 @@ export function DashboardUser() {
   const isGustavo = data?.user.email === "gustavossw1@gmail.com" ? true : false;
 
   if (isGustavo === false) {
-    return redirect("/");
+    redirect("/");
   }
 
   function handleSignOut() {
