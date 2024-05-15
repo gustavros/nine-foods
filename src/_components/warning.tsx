@@ -15,6 +15,14 @@ import { AlertDialogHeader, AlertDialogFooter } from "./ui/alert-dialog";
 export function Warning() {
   const [open, setOpen] = useState(true);
 
+  if (typeof localStorage !== "undefined") {
+    localStorage.setItem("warning", "true");
+  } else if (typeof sessionStorage !== "undefined") {
+    sessionStorage.setItem("warning", "true");
+  } else {
+    console.log("Web Storage is not supported in this environment.");
+  }
+
   if (localStorage.getItem("warning") === "true") {
     return null;
   }
