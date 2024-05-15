@@ -9,18 +9,25 @@ import {
 } from "@/_components/ui/alert-dialog";
 import { CircleAlertIcon } from "lucide-react";
 
+import { getCookie, setCookie } from "cookies-next";
+
 import { useState } from "react";
 import { AlertDialogHeader, AlertDialogFooter } from "./ui/alert-dialog";
 
 export function Warning() {
   const [open, setOpen] = useState(true);
 
-  if (document.cookie.includes("next-warning=false")) {
+  const hasWarning = getCookie("next-warning");
+
+  if (hasWarning) {
     return null;
   }
 
   function handleSaveOnCookies() {
-    document.cookie = `next-warning=false; path=/;`;
+    setCookie("next-warning", "false", {
+      path: "/",
+      expires: new Date(Date.now() + 1000 * 60 * 60 * 24 * 365),
+    });
 
     setOpen(false);
   }
