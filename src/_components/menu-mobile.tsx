@@ -3,9 +3,6 @@ import {
   LogIn,
   HomeIcon,
   ScrollTextIcon,
-  HeartIcon,
-  UtensilsIcon,
-  SandwichIcon,
   PizzaIcon,
   FishIcon,
   IceCreamIcon,
@@ -59,7 +56,7 @@ export default function MenuMobile() {
                   <AvatarImage src={data.user.image} alt={data.user.name} />
                 )}
                 <AvatarFallback>
-                  {data.user.name[0].toUpperCase()} -{" "}
+                  {data.user.name[0].toUpperCase()}
                 </AvatarFallback>
               </Avatar>
 
@@ -103,19 +100,6 @@ export default function MenuMobile() {
             </Link>
           </Button>
 
-          <Button
-            asChild
-            variant={"ghost"}
-            className="flex w-full items-center justify-start gap-3"
-            onClick={handleWithLoginIfUserNotLogged}
-          >
-            <Link href={"/my-favorite-restaurants"}>
-              <HeartIcon size={16} />
-
-              <p className="text-sm">Restaurantes favoritos</p>
-            </Link>
-          </Button>
-
           {isAdmin && (
             <Button
               asChild
@@ -134,24 +118,6 @@ export default function MenuMobile() {
         <hr className="my-6" />
 
         <div className="flex flex-col gap-1">
-          <Button
-            variant={"ghost"}
-            className="flex w-full items-center justify-start gap-3"
-          >
-            <UtensilsIcon size={16} />
-
-            <p className="text-sm">Pratos</p>
-          </Button>
-
-          <Button
-            variant={"ghost"}
-            className="flex w-full items-center justify-start gap-3"
-          >
-            <SandwichIcon size={16} />
-
-            <p className="text-sm">Lanches</p>
-          </Button>
-
           <Button
             variant={"ghost"}
             className="flex w-full items-center justify-start gap-3"

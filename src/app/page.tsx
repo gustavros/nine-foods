@@ -2,38 +2,26 @@ import CategoryList from "@/_components/category-list";
 import Header from "@/_components/header";
 import ProductList from "@/_components/product-list";
 import PromoBanner from "@/_components/promo-banner";
-import RestaurantList from "@/_components/restaurant-list";
 import { Button } from "@/_components/ui/button";
+import { Warning } from "@/_components/warning";
 import { db } from "@/_lib/prisma";
 import { ChevronRight } from "lucide-react";
 import Link from "next/link";
 
 export default async function Home() {
-  const pizzas = await db.product.findMany({
-    where: {
-      discountPercentage: {
-        gt: 0,
-      },
-      category: {
-        name: "Pizzas",
-      },
-    },
-    include: {
-      restaurant: true,
-    },
-  });
-
   const burguers = await db.product.findMany({
     where: {
-      discountPercentage: {
-        gt: 0,
-      },
       category: {
         name: "Hambúrgueres",
       },
     },
-    include: {
-      restaurant: true,
+  });
+
+  const pizzas = await db.product.findMany({
+    where: {
+      category: {
+        name: "Pizzas",
+      },
     },
   });
 
@@ -101,26 +89,7 @@ export default async function Home() {
         <ProductList products={burguers} />
       </div>
 
-      <hr className="mx-5 my-2" />
-
-      <div className="w-full px-5">
-        <div className="flex items-center justify-between pb-4 pt-6">
-          <h2 className="font-semibold">Restaurantes recomendados</h2>
-
-          <Button
-            variant={"link"}
-            className="flex items-center px-0 text-primary"
-            asChild
-          >
-            <Link href={"/restaurants/recommended"}>
-              Ver todos
-              <ChevronRight size={16} />
-            </Link>
-          </Button>
-        </div>
-
-        <RestaurantList />
-      </div>
+      <Warning />
     </>
   );
 }

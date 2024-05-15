@@ -2,10 +2,10 @@
 
 import { db } from "@/_lib/prisma";
 
-export default async function searchForRestaurants(search: string) {
-  const restaurants = await db.restaurant.findMany({
+export default async function searchForProducts(search: string) {
+  const products = await db.product.findMany({
     include: {
-      categories: true,
+      restaurant: true,
     },
     where: {
       name: {
@@ -15,5 +15,5 @@ export default async function searchForRestaurants(search: string) {
     },
   });
 
-  return restaurants;
+  return products;
 }

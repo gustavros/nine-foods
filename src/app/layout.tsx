@@ -5,6 +5,7 @@ import { CartProvider } from "@/_context/cart";
 import { ThemeProvider } from "@/_components/theme-provider/theme-provider";
 import AuthProvider from "@/_providers/auth";
 import { Toaster } from "@/_components/ui/sonner";
+import { TableProvider } from "@/_context/table";
 
 const grotesk = Space_Grotesk({ subsets: ["latin"] });
 
@@ -24,7 +25,9 @@ export default function RootLayout({
       <body className={grotesk.className}>
         <AuthProvider>
           <ThemeProvider attribute="class" defaultTheme="system" enableSystem>
-            <CartProvider>{children}</CartProvider>
+            <TableProvider>
+              <CartProvider>{children}</CartProvider>
+            </TableProvider>
             <Toaster />
           </ThemeProvider>
         </AuthProvider>
